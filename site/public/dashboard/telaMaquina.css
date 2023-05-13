@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    width: 100%;
+    background-color: #101017;
+}
+
+.navbar {
+    position: fixed;
+    height: 100%;
+    width: 60px;
+    background-color: #171821;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    border-radius: 0 18px 18px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2.5rem;
+}
+
+.logo img {
+    width: 25px;
+    cursor: pointer;
+}
+
+nav {
+    margin-top: 5rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav img {
+    width: 18px;
+}
+
+li:hover {
+    transform: scale(1.20);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 2rem;
+}
+
+.logout img {
+    width: 20px;
+}
+
+/*  */
+
+.home-section{
+    background-color: #101017;
+    position: relative;
+    width: calc(100% - 60px);
+    min-height: 100vh;
+    left: 60px;
+}
+
+/* Seção do Perfil */
+
+.section-perfil{
+    background-color: #101017;
+    height: 12vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+}
+
+.containerPerfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    border-left: 1px solid #313131;
+}
+
+.contentImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 1rem;
+    background-image: url(assets/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.contentName{
+    color: white;
+    margin-right: 2rem;
+}
+
+/* FIM */
+
+/* FRM-MAQUINAS */
+
+.section-create{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #101017;
+    height: 600px;
+}
+
+.section-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    border-radius: 5px right;
+    background-color: #101016;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.containerMaquinas{
+    display: flex;
+    background-color: #171821;
+    border: solid 1px #313131;
+    border-radius: 5px;
+    box-shadow: #000000 0px 1px 50px 1px;
+    height: 500px;
+    width: 800px;
+}
+
+.title{
+    margin: 10px;
+    color: rgb(214, 214, 214);
+    cursor: default;
+    margin-bottom: 0.8rem;
+}
+
+.title h1{
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.title p{
+    font-size: 13px;
+    font-weight: 500;
+    color: #838383;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    width: 50%;
+    height: 100%;
+}
+
+.form-inputMarca{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.form-inputMarca label{
+    color: #7d8288;
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.form-inputMarca input{
+    outline: none;
+    border: none;
+    padding: 12px 30px;
+    background-color: #101017;
+    border: solid 2px #313131;
+    border-radius: 4px;
+    color: white;
+}
+
+.form-inputMarca input:hover{
+    border: solid 2px #1B98E0;
+    transition: 0.4s;
+}
+
+.form-inputModelo{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.form-inputModelo label{
+    color: #7d8288;
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.form-inputModelo input{
+    outline: none;
+    border: none;
+    padding: 12px 30px;
+    background-color: #101017;
+    border: solid 2px #313131;
+    border-radius: 4px;
+    color: white;
+}
+
+.form-inputModelo input:hover{
+    border: solid 2px #1B98E0;   
+}
+
+.form-inputInfoHardware{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.form-inputInfoHardware label{
+    color: #7d8288;
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.form-inputInfoHardware input{
+    outline: none;
+    border: none;
+    padding: 12px 30px;
+    background-color: #101017;
+    border: solid 2px #313131;
+    border-radius: 4px;
+    color: white;
+}
+
+.form-inputInfoHardware input:hover{
+    border: solid 2px #1B98E0;   
+}
+
+.containerButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.button-criar button{
+    border: none;
+    outline: none;
+    padding: 15px 25px;
+    background-color: #1B98E0;
+    color: white;
+    font-weight: 600;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.button-excluir button{
+    border: none;
+    outline: none;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    color: #1B98E0;
+    font-weight: 600;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.button-criar button:hover{
+    background-color: #1780bd;
+    transition: 0.5s;
+}
+
+.button-excluir button:hover{
+    color: #1780bd;
+    transition: 0.5s;
+}

@@ -21,6 +21,10 @@ router.post("/cadastrar_usuario", function (req, res) {
     usuarioController.cadastrar_usuario(req, res);
 });
 
+router.post("/criar_maquina", function (req, res) {
+    usuarioController.criar_maquina(req, res);
+});
+
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });

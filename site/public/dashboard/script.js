@@ -10,4 +10,8 @@ function home(){
     location = "dashboard.html";
 }
 
+function cadastrarMaquina(){
+    location = "telaMaquina.html";
+}
+
 // Sroll

@@ -96,7 +96,7 @@
                         console.log(json);
                         console.log(JSON.stringify(json));
 
-                        sessionStorage.ID_EMPRESA = json[0].idEmpresa;
+                        sessionStorage.ID_EMPRESA = json.insertId;
 
                         setTimeout(function () {
                             window.location = "cadastroAdm.html";

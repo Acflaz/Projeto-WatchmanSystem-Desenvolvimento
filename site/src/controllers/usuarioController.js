@@ -135,10 +135,50 @@ function cadastrar_usuario(req, res) {
     }
 }
 
+function criar_maquina(req, res) {
+    var nomeMarcaVar = req.body.nomeMarcaServer;
+    var nomeModeloVar = req.body.nomeModeloServer;
+    var RAMVar = req.body.RAMServer;
+    var CPUVar = req.body.CPUServer;
+    var idEmpresa = req.body.idEmpresaServer;
+    var idUsuario = req.body.idUsuarioServer;
+
+    if (idEmpresa == undefined) {
+        res.status(400).send("O id está undefined!");
+    } else if (nomeMarcaVar == undefined) {
+        res.status(400).send("A marca está undefined!");
+    } else if (nomeModeloVar == undefined) {
+        res.status(400).send("O modelo está undefined!"); 
+    } else if (RAMVar == undefined) {
+        res.status(400).send("A RAM está undefined!");
+    } else if (CPUVar == undefined){
+        res.status(400).send("A CPU está undefined!");
+    } else if(idUsuario == undefined){
+        res.status(400).send("O idUsuario está undefined!");
+    } else {
+        usuarioModel.criar_maquina(nomeMarcaVar, nomeModeloVar, RAMVar, CPUVar, idUsuario, idEmpresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     entrar,
     cadastrar_empresa,
     cadastrar_usuario,
+    criar_maquina,
     listar,
     testar
 }

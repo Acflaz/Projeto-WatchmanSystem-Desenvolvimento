@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="telaMaquina.css">
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <title>Máquinas</title>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="" onclick="home()">
+        </div>
+        <nav>
+            <li><a href="../dashboard/graficos.html">
+                    <img src="assets/casa.png" class="campo-usuario" alt="">
+                </a></li>
+        </nav>
+        <div class="logout">
+            <li><a href="../login.html">
+                    <img src="assets/sair.png" alt="">
+                </a></li>
+        </div>
+    </header>
+
+    <main class="home-section">
+        <section class="section-perfil">
+            <div class="containerPerfil">
+                <div class="contentImage" id="imageUser">
+
+                </div>
+                <div class="contentName">
+                    <p id="nameUser">Erick San.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-create">
+            <div class="containerMaquinas">
+                <div class="form">
+                    <div class="title">
+                        <h1>CONFIGURAÇÕES DAS MÁQUINAS</h1>
+                        <p>Informe dados da máquina</p>
+                    </div>
+                    <div class="form-inputMarca">
+                        <label for="marcaMaquina">Marca</label>
+                        <input type="text" id="marcaMaquina">
+                    </div>
+                    <div class="form-inputModelo">
+                        <label for="modeloMaquina">Modelo</label>
+                        <input type="text" id="modeloMaquina">
+                    </div>
+                    <div class="form-inputInfoHardware">
+                        <label for="capacidadeRAM">Capacidade de RAM</label>
+                        <input type="text" id="capacidadeRAM">
+                    </div>
+                    <div class="form-inputInfoHardware">
+                        <label for="velocidadeCPU">Velocidade do CPU</label>
+                        <input type="text" id="velocidadeCPU">
+                    </div>
+                </div>
+                <section class="section-right">
+                    <div class="containerButtons">
+                        <div class="button-criar">
+                            <button onclick="criar_maquina()">Criar Máquina</button>
+                        </div>
+                        <div class="button-excluir">
+                            <button onclick="excluirMaquina()">Excluir Máquina</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
+
+<script>
+    function criar_maquina() {
+        const idUsuarioVar = sessionStorage.getItem("ID_USUARIO");
+        const idEmpresaVar = sessionStorage.getItem("ID_EMPRESA");
+        var nomeMarcaVar = marcaMaquina.value;
+        var nomeModeloVar = modeloMaquina.value;
+        var RAMVar = capacidadeRAM.value;
+        var CPUVar = velocidadeCPU.value;
+
+        if (nomeMarcaVar == "" || nomeModeloVar == "" || RAMVar == "" || CPUVar == "") {
+            swal("Erro!", "Preencha todos os campos", "error");
+
+            return false;
+        }
+        else {
+            fetch("/usuarios/criar_maquina", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idUsuarioServer: idUsuarioVar,
+                    idEmpresaServer: idEmpresaVar,
+                    nomeMarcaServer: nomeMarcaVar,
+                    nomeModeloServer: nomeModeloVar,
+                    RAMServer: RAMVar,
+                    CPUServer: CPUVar
+                })
+            }).then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    swal("Cadastro realizado com sucesso!", " Redirecionando para tela de Login...", "success");
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        sessionStorage.ID_USUARIO = json.idUsuario;
+                        // console(json.idUsuario);
+                        // console(json.fkEmpresa);
+                        sessionStorage.ID_EMPRESA = json.fkEmpresa;
+
+
+                        setTimeout(function () {
+                            window.location = "graficos.html";
+                        }, 2000); // apenas para exibir o loading
+                    });
+
+                } else {
+                    swal("Houve um erro ao tentar realizar o cadastro!", "Erro", "error");
+                    throw ("Houve um erro ao tentar realizar o cadastro!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+
+            return false;
+        }
+    }
+</script>
