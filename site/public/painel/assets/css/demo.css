@@ -1,0 +1,197 @@
+@media (min-width: 992px){
+    .typo-line{
+        padding-left: 140px;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .typo-line .category{
+        transform: translateY(-50%);
+        top: 50%;
+        left: 0px;
+        position: absolute;
+    }
+}
+
+.all-icons [class*="pe-"]{
+    font-size: 40px;
+}
+.all-icons input{
+    border: 0;
+}
+.all-icons .font-icon-detail{
+    text-align: center;
+    padding: 45px 0px 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+.all-icons .font-icon-detail input{
+    margin: 25px auto 0;
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: #aaa;
+    font-size: 13px;
+}
+
+#map{
+    position:relative;
+    width:100%;
+    height: calc(100% - 60px);
+}
+
+.places-buttons .btn{
+    margin-bottom: 30px
+}
+.sidebar .nav > li.active-pro{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+}
+.sidebar .nav > li.active-pro a{
+    opacity: 1;
+    color: #FFFFFF;
+}
+
+.table-upgrade td:nth-child(2),
+.table-upgrade td:nth-child(3){
+    text-align: center;
+}
+
+@media all and (max-width: 991px)  {
+    .sidebar .nav > li.active-pro{
+        position: initial;
+    }
+}
+
+.navbar-header{
+    margin-top: 5px;
+}
+
+.simple-text img{
+    width: 80%;
+}
+
+.sectionPerfil {
+    background-color: #101017;
+    height: 10vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+.containerPerfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    border-left: 1px solid #1F77D0;
+    margin-top: 1rem;
+}
+
+.contentImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 1rem;
+    background-image: url(../img/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.contentName{
+    color: white;
+    margin-right: 2rem;
+}
+
+.content img{
+    border-radius: 100%;
+}
+
+.sectionPerfil2 {
+    background-color: #171821;
+    border-radius: 5px;
+    border-top: 1px solid #358be0;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.containerPerfil2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.contentImage2{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-image: url(../img/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.sectionPerfil2 h3{
+    margin-bottom: 2rem;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.sectionPerfil2 h4,p{
+    margin: 0;
+    font-size: 15px;
+}
+
+.card1 {
+    background-color: #171821;
+    height: 230px;
+    border-radius: 5px;
+    border: 1px solid #1F77D0;
+}
+
+.table-wrapper-scroll-y .iptNumber{
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: solid 1px #101017;
+}
+
+.table-wrapper-scroll-y{
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: solid 1px #101017;
+}
+
+.table-wrapper-scroll-y{
+    border: 0;
+}
+
+.title{
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.table-wrapper-scroll-y::-webkit-scrollbar-track{
+	/*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+	border-radius:0;
+	background-color: #D0D4CE;
+}
+
+.table-wrapper-scroll-y::-webkit-scrollbar{
+	width: 6px;
+	background-color: #D0D4CE;
+}
+
+.table-wrapper-scroll-y::-webkit-scrollbar-thumb{
+	border-radius:0;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #358be0;
+}

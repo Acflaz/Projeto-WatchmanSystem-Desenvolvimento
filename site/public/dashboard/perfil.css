@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #101017;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2.5rem;
+}
+
+.logo img {
+    width: 25px;
+    cursor: pointer;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #171821;
+    width: 60px;
+    overflow: hidden;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    border-radius: 0 18px 18px 0;
+}
+
+nav {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    align-items: center;
+}
+
+nav li,
+a {
+    margin: 20px;
+}
+
+li:hover {
+    transform: scale(1.20);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+nav img {
+    width: 18px;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 2rem;
+    list-style: none;
+}
+
+.logout img {
+    width: 20px;
+}
+
+/*  */
+
+.sectionPerfil {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #3E3E3E;
+    width: 500px;
+    height: 80vh;
+    padding: 10px;
+}
+
+
+.containerPerfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-image: url(assets/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #1B98E0;
+}
+
+.form {
+    margin: 8px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    border-bottom: 1px solid #232222;
+    cursor: default;
+    margin-top: 1rem;
+}
+
+.form label {
+    font-size: 10px;
+    color: #ABABAB;
+    margin-bottom: 5px;
+}
+
+.form p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}

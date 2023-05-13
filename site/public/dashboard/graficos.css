@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #101017;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2.5rem;
+}
+
+.logo img {
+    width: 25px;
+    cursor: pointer;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #171821;
+    width: 60px;
+    overflow: hidden;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    border-radius: 0 18px 18px 0;
+}
+
+nav {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    align-items: center;
+}
+
+nav li,
+a {
+    margin: 20px;
+}
+
+li:hover {
+    transform: scale(1.20);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+nav img {
+    width: 18px;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 2rem;
+    list-style: none;
+}
+
+.logout img {
+    width: 20px;
+}
+
+/* Seção Perfil */
+
+.sectionPerfil {
+    background-color: #101017;
+    height: 10vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+.containerPerfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    border-left: 1px solid #313131;
+    margin-top: 4rem;
+}
+
+.contentImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 1rem;
+    background-image: url(assets/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.contentName{
+    color: white;
+    margin-right: 2rem;
+}
+
+.sectionKpi{
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: translate(8%, 20%);
+    background-color: #171821;
+    height: 300px;
+    width: 180vh;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.containerKPI{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.containerKPI h1{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: #FFF;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.containerKPI .informationAnalytics{
+    display: flex;
+    justify-content: center;
+}
+
+.sectionKpi .graficoKpi{
+    width: 240px;
+}
+
+.sectionTelas{
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: translate(8%, 15%);
+    background-color: #171821;
+    height: 520px;
+    width: 180vh;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.primeiroGrupo{
+    height: 230px;
+    margin: 20px;
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.containerTela1, .containerTela2, .containerTela3, .containerTela4,
+.containerTela5, .containerTela6, .containerTela7, .containerTela8{
+    background-color: #141E30;
+    margin: 27px 15px;
+    width: 280px;
+    height: 210px;
+    border-radius: 5px;
+}
+
+.containerTela8{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerTela1, .containerTela2, .containerTela3, .containerTela4,
+.containerTela5, .containerTela6, .containerTela7, .containerTela8 h1{
+    padding: 20px;
+    color: white;
+    font-size: 15px;
+    text-align: center;
+}
+
+.containerTela8 h1{
+    font-size: 85px;
+    color: #596f96;
+}
+
+.contentVerticalTelas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contentVerticalTelas img{
+    margin-top: 10px;
+}
+
+.segundoGrupo{
+    height: 230px;
+    margin: 20px;
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.contentProdutividade{
+    display: flex;
+    flex-direction: column;
+    justify-content: first baseline;
+    align-items: center;
+    gap: 10px;
+    margin: 0 20px;
+    color: white;
+    font-size: 12px;
+}
+
+body::-webkit-scrollbar {
+    width: 12px;            
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: #101017;       
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #1B98E0; 
+    border-radius: 20px;     
+    border: 3px solid #101017;  
+  }

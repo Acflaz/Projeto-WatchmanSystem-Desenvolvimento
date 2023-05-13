@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #101017;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2.5rem;
+}
+
+.logo img {
+    width: 25px;
+    cursor: pointer;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #171821;
+    width: 60px;
+    overflow: hidden;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    border-radius: 0 18px 18px 0;
+}
+
+nav {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    align-items: center;
+}
+
+nav li,
+a {
+    margin: 20px;
+}
+
+li:hover {
+    transform: scale(1.20);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+nav img {
+    width: 18px;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 2rem;
+    list-style: none;
+}
+
+.logout img {
+    width: 20px;
+}
+
+/* Seção Perfil */
+
+.sectionPerfil {
+    background-color: #101017;
+    height: 10vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+.containerPerfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    border-left: 1px solid #313131;
+    margin-top: 4rem;
+}
+
+.contentImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 1rem;
+    background-image: url(assets/suporte.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.contentName{
+    color: white;
+    margin-right: 2rem;
+}
+
+/* Fim seção do perfil */
+
+/* KPI's */
+
+.sectionKPI{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(8%, 50%);
+    margin-top: 2rem;
+    background-color: #21222D;
+    height: 250px;
+    width: 180vh;
+    border-radius: 15px;
+    cursor: default;
+}
+
+.GroupKPI{
+    height: 210px;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.containerKPI{
+    background-color: #171821;
+    margin: 10px;
+    width: 280px;
+    border-radius: 10px;
+}
+
+.containerKPI img{
+    position: absolute;
+    margin: 15px 20px;
+    width: 30px;
+}
+
+.contentHorizontal{
+    display: flex;
+    justify-content: center;
+}
+
+.contentHorizontal h1{
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.contentHorizontal img{
+    width: 30px;
+    margin-right: 5rem;
+}
+
+.contentVertical{
+    color: #AAE6D0;
+    font-size: 12px;
+    text-align: center;
+}
+
+.contentVerticalParametro p{
+    text-align: center;
+    color: white;
+    font-size: 90px;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.contentVerticalParametro span{
+    font-size: 20px;
+}
+
+/* Fim */
+
+/* Seção das telas */
+
+.sectionTelas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(8%, 85%);
+    background-color: #171821;
+    height: 520px;
+    width: 180vh;
+    border-radius: 15px;
+    cursor: pointer;
+    overflow-y: scroll;
+}
+
+.primeiroGrupo{
+    height: 230px;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.containerTela{
+    background-color: #141E30;
+    margin: 10px;
+    width: 280px;
+    height: 160px;
+    border-radius: 25px;
+}
+
+.containerTela .date{
+    color: #D9D9D9;
+    font-size: 14px;
+    margin: 15px 20px;
+}
+
+.contentVerticalTelas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contentVerticalTelas h1{
+    color: white;
+    margin-top: 1rem;
+    font-size: 25px;
+    margin-bottom: 2rem;
+}
+
+.contentVerticalTelas p{
+    color: #D9D9D9;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.contentVerticalTelas img{
+    margin-top: 2rem;
+}
+
+.porcentagem{
+    margin: 10px 210px;
+    color: white;
+    font-size: 14px;
+}
+
+.hours{
+    color: #D9D9D9;
+    font-size: 14px;
+    margin: 5px 20px;
+}
+
+.segundoGrupo{
+    height: 230px;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+body::-webkit-scrollbar {
+    width: 12px;            
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: #101017;       
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #1B98E0; 
+    border-radius: 20px;     
+    border: 3px solid #101017;  
+  }
+
+  .sectionTelas::-webkit-scrollbar-track{
+	/*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+	border-radius:0;
+	background-color: #D0D4CE;
+}
+
+.sectionTelas::-webkit-scrollbar{
+	width: 6px;
+	background-color: #D0D4CE;
+}
+
+.sectionTelas::-webkit-scrollbar-thumb{
+	border-radius:0;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #358be0;
+}

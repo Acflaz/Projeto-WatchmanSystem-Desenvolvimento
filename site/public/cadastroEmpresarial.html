@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WS | Cadastro Empresarial</title>
+    <link rel="stylesheet" href="./style/style-cadastroEmpresarial.css">
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
+    <script src="./js/script.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<body>
+    <div class="top">
+        <a onclick="voltarCadastroUsuario()">
+            <img src="./assets/arrow-left-blue.png" alt="Botão voltar">
+            Voltar
+        </a>
+    </div>
+
+    <div class="container_main">
+        <div class="image_main">
+            <div class="logo">
+                <span><img src="./assets/logoCompleto.png"></span>
+            </div>
+
+            <div class="bottom">
+                <a href="" target="_blank">
+                    <img src="./assets/logo-instagram.png" alt="Instagram">
+                </a>
+                <a href="" target="_blank">
+                    <img src="./assets/logo-facebook.png" alt="Instagram">
+                </a>
+                <a href="" target="_blank">
+                    <img src="./assets/logo-twitter.png" alt="Twitter">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="section-rigth">
+        <div class="container">
+            <div class="content-form">
+                <img src="./assets/Logo-mobile.png" alt="" class="image-logoMobile">
+                <h1>Cadastro Empresarial</h1>
+                <p>Por favor, preencha suas informações abaixo</p>
+                <div class="form">
+                    <input type="text" placeholder="Nome fantasia" id="nomeFantasia" class="nomeFantasia">
+                    <input type="text" placeholder="CNPJ" id="cnpj" class="cnpj">
+                    <input type="text" placeholder="E-mail responsável" id="emailResponsavel" class="emailResponsavel">
+                    <input type="text" placeholder="Telefone" id="telefone" class="telefone">
+                </div>
+                <div class="btn-enviar">
+                    <button onclick="cadastrar_empresa()"><span>Enviar</span><img src="./assets/Path.png"alt=""></button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+
+<script>
+    function cadastrar_empresa() {
+        var nomeFantasiaVar = nomeFantasia.value;
+        var cnpjVar = cnpj.value;
+        var emailVar = emailResponsavel.value;
+        var telefoneVar = telefone.value;
+
+        if (nomeFantasiaVar == "" || cnpjVar == "" || emailVar == "" || telefoneVar == "") {
+            swal("Erro!", "Preencha todos os campos", "error");
+
+            return false;
+        }
+        else {
+            fetch("/usuarios/cadastrar_empresa", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeServer: nomeFantasiaVar,
+                    cnpjServer: cnpjVar,
+                    emailServer: emailVar,
+                    telefoneServer: telefoneVar
+                })
+            }).then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    swal("Cadastro realizado com sucesso!", " Redirecionando para tela de Login...", "success");
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        sessionStorage.ID_EMPRESA = json[0].idEmpresa;
+
+                        setTimeout(function () {
+                            window.location = "cadastroAdm.html";
+                        }, 2000); // apenas para exibir o loading
+                    });
+
+                } else {
+                    swal("Houve um erro ao tentar realizar o cadastro!", "Erro", "error");
+                    throw ("Houve um erro ao tentar realizar o cadastro!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+
+            return false;
+        }
+    }
+</script>

@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: black;
+}
+
+.main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.left-content {
+  width: 40%;
+  height: 100%;
+  background-image: url(../assets/background.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 74px 75px 77px;
+}
+
+@media only screen and (max-width: 640px) {
+  .left-content {
+    display: none;
+  }
+}
+
+
+.left-content .top a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  cursor: pointer;
+}
+
+.left-content .top img {
+  width: 19px;
+  height: 15px;
+}
+
+.left-content .middle {
+  display: flex;
+  justify-content: center;
+  margin-top: -50px;
+}
+
+
+.left-content .bottom {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+}
+
+
+.right-content {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.custom-select select {
+  display: none;
+}
+
+.select-selected {
+  background-color: #1B98E0;
+}
+
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 16px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+
+
+.select-items {
+  position: absolute;
+  background-color: #1B98E0;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (max-width: 640px) {
+  .right-content {
+    width: 100%;
+  }
+}
+
+.right-content .top.mobileOnly,
+.right-content .logo.mobileOnly {
+  display: none;
+}
+
+@media only screen and (max-width: 640px) {
+  .right-content .top.mobileOnly {
+    display: block;
+    padding: 45px 30px;
+  }
+
+  .right-content .logo.mobileOnly {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+.right-content .middle {
+  color: #FFFFFF;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 240px;
+}
+
+@media only screen and (max-width:1400px) {
+  .right-content .middle {
+    padding: 0 200px;
+  }
+}
+
+@media only screen and (max-width:1024px) {
+  .right-content .middle {
+    padding: 0 50px;
+  }
+}
+
+@media only screen and (max-width:640px) {
+  .right-content .middle {
+    padding: 0 50px;
+  }
+}
+
+.right-content .middle .content-middle {
+  width: 100%;
+}
+
+.right-content .middle h3 {
+  font-size: 28px;
+  font-weight: 700;
+  cursor: default;
+}
+
+.right-content .middle span {
+  cursor: default;
+}
+
+@media only screen and (max-width:640px) {
+  .right-content .middle h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+}
+
+.right-content .middle span {
+  color: #958E8E;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+.right-content .middle .form {
+  display: flex;
+  flex-direction: column;
+}
+
+.right-content .middle .form .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 440px;
+  height: 63px;
+  min-width: 280px;
+  border: 1px solid #1B98E0;
+  padding: 15px;
+  gap: 20px;
+  margin-top: 30px;
+  z-index: 10;
+  background: transparent;
+}
+
+@media only screen and (max-width: 640px) {
+  .right-content .middle .form .btn {
+    height: 45px;
+    margin-top: 15px;
+  }
+}
+
+
+.right-content .middle .form .icon {
+  width: 20px;
+}
+
+.btn {
+  width: 80%;
+  border: none;
+  outline: none;
+  background: black;
+  color: #fff;
+  text-indent: 60px;
+}
+
+@media only screen and (max-width: 640px) {
+  .btn {
+    text-indent: 25px;
+  }
+}
+
+.right-content .middle .form span {
+  position: relative;
+}
+
+.user::after {
+  content: url(../assets/icon-user.png);
+  width: 20px;
+  height: 25x;
+  position: absolute;
+  bottom: 40px;
+  left: 30px;
+}
+
+@media only screen and (max-width: 640px) {
+  .user::after {
+    bottom: 15px;
+    left: 10px;
+  }
+}
+
+.password::after {
+  content: url(../assets/icon-password.png);
+  width: 20px;
+  height: 25px;
+  position: absolute;
+  bottom: 40px;
+  left: 30px;
+}
+
+@media only screen and (max-width: 640px) {
+  .password::after {
+    bottom: 15px;
+    left: 10px;
+  }
+}
+
+.btn::placeholder {
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+@media only screen and (max-width: 640px) {
+  .btn::placeholder {
+    font-size: 12px;
+  }
+}
+
+.right-content .middle span {
+  display: flex;
+  padding: 19px 0;
+}
+
+@media only screen and (max-width: 640px) {
+  .right-content .middle span {
+    padding: 5px 0;
+  }
+
+  .right-content .middle>span {
+    display: none;
+  }
+}
+
+.right-content .middle .btn-enter {
+  background-color: #1B98E0;
+  color: white;
+  width: 100%;
+  min-width: 175px;
+  height: 70px;
+  max-width: 176px;
+  border: 1px solid #1B98E0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 18px;
+  font-size: 22px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 50px;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 640px) {
+  .right-content .middle .btn-enter {
+    width: 85px;
+    height: 40px;
+    font-size: 14px;
+    padding: 10px 10px;
+    gap: 5px;
+
+  }
+
+  .right-content .middle a img {
+    width: 20px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .right-content .middle .btn-enter {
+    align-self: unset;
+
+  }
+}
+
+.right-content .bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #D8D8D8;
+  height: 47.5px;
+}
+
+@media only screen and (max-width: 640px) {
+  .right-content .bottom {
+    display: none;
+  }
+}
+
+.right-content .bottom span {
+  font-weight: 12px;
+  color: #f5f1f1;
+}

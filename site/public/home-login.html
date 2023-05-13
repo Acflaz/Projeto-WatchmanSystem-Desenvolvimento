@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/style-home-login.css" />
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
+    <script src="js/script.js"></script>
+    <title>WS | Home Login</title>
+  </head>
+  <body>
+    <main class="main">
+      <div class="left-content">
+
+        <div class="top">
+          <a onclick="voltarHome()">
+            <img src="./assets/arrow-left-blue.png" alt="Botão voltar">
+            Voltar
+          </a>
+        </div>
+
+        <div class="middle">
+          <img src="./assets/logoCompleto.png" alt="Logo da empresa - Watchman System.">
+        </div>
+
+        <div class="bottom">
+            <a href="" target="_blank">
+              <img src="./assets/logo-instagram.png" alt="Instagram">
+            </a>
+            <a href="" target="_blank">
+              <img src="./assets/logo-facebook.png" alt="Facebook">
+            </a>
+            <a href="" target="_blank">
+              <img src="./assets/logo-twitter.png" alt="Twitter">
+            </a>
+        </div>
+         
+      </div>
+
+      <div class="right-content">
+
+        <div class="top mobileOnly">
+          <a href="../public/index.html">
+            <img src="./assets/arrow-left-blue.png" alt="Botão voltar">
+          </a>
+        </div>
+
+        <div class="logo mobileOnly">
+          <img src="./assets/Logo-mobile.png" alt="Logo da empresa - Watchman System.">
+        </div>
+
+
+
+        <div class="middle">
+        
+          <div class="btn">
+          <a class="sign-up" onclick="criarConta()">
+            Criar
+            <img src="./assets/arrow-right-blue.png" alt="Criar">
+          </a>
+          <a class="sign-in" onclick="Login()">
+            Login
+            <img src="./assets/arrow-right-white.png" alt="">
+          </a>
+        </div>  
+        
+
+        </div>
+
+        <div class="bottom">
+          <span>Copyright @ 2022</span>
+        </div>
+
+      </div>
+    </main>
+  </body>
+</html>
+
+<script>
+  function criarConta(){
+    window.location = "./cadastroEmpresarial.html"
+  }
+</script>

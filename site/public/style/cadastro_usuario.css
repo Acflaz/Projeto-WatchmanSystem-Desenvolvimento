@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.top {
+  position: absolute;
+  position: absolute;
+  left: 3%;
+  top: 5%;
+}
+
+.top a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.container_main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.image_main {
+  width: 40%;
+  height: 100%;
+  background-image: url("../assets/unsplash_E2i7Hftb_rI.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 74px 75px 77px;
+}
+
+.image_main .bottom {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+}
+
+.logo {
+  position: relative;
+  top: 45%;
+  left: 15%;
+}
+
+/* Formulario de login */
+
+.section-rigth {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(25%, -62%);
+}
+
+.container {
+  height: 400px;
+  width: 400px;
+}
+
+.content-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-form h1 {
+  margin-bottom: 1.5rem;
+  cursor: default;
+}
+
+.content-form p {
+  font-size: 14px;
+  color: #958E8E;
+  margin-bottom: 1.0rem;
+  cursor: default;
+}
+
+.form {
+  flex-direction: column;
+  display: flex;
+}
+
+.form input {
+  margin-top: 10px;
+  margin-bottom: 2rem;
+  outline: none;
+  padding: 15px 40px;
+  border: none;
+  background-color: #fff;
+  border: 1px solid #1B98E0;
+  color: black;
+}
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.custom-select select {
+  display: none;
+}
+
+.select-selected {
+  background-color: #1B98E0;
+}
+
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 16px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+
+
+.select-items {
+  position: absolute;
+  background-color: #1B98E0;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.input_user {
+  background: url(../assets/icon-user.png) no-repeat left / 17px;
+  background-position: 8px;
+}
+
+.input_email {
+  background: url(../assets/o-email\ 1.png) no-repeat left / 22px;
+  background-position: 8px;
+}
+
+.input_senha {
+  background: url(../assets/icon-password.png) no-repeat left / 20px;
+  background-position: 8px;
+}
+
+.confirmar_senha {
+  background: url(../assets/icon-password.png) no-repeat left / 20px;
+  background-position: 8px;
+}
+
+.btn-enviar {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px #B8B8B8 solid;
+}
+
+.btn-enviar button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 50px;
+  margin-top: 10px;
+  background-color: #007DFA;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+}
+
+.btn-enviar img {
+  margin-left: 40px;
+  width: 6px;
+  cursor: pointer;
+}
+
+.image-logoMobile {
+  width: 80px;
+  display: none;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .image-logoMobile {
+    width: 80px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+  }
+
+  .container_main {
+    display: none;
+  }
+
+  .section-rigth {
+    position: static;
+    transform: none;
+    margin-top: 50px;
+  }
+
+  .container {
+    height: auto;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .content-form p {
+    display: none;
+  }
+
+  .btn-enviar {
+    justify-content: center;
+    margin-top: 15px;
+    border-top: none;
+  }
+
+  .btn-enviar button {
+    width: 40%;
+    margin-left: 12rem;
+  }
+
+  .btn-enviar img {
+    display: none;
+  }
+  .custom-select {
+    width: 100%;
+  }
+}

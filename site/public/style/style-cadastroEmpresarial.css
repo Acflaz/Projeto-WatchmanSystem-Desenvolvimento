@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.top {
+  position: absolute;
+  position: absolute;
+  left: 3%;
+  top: 5%;
+}
+
+.top a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.container_main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.image_main {
+  width: 40%;
+  height: 100%;
+  background-image: url("../assets/unsplash_E2i7Hftb_rI.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 74px 75px 77px;
+}
+
+.image_main .bottom {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+}
+
+.logo {
+  position: relative;
+  top: 45%;
+  left: 15%;
+}
+
+/* Formulario de login */
+
+.section-rigth {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(25%, -62%);
+}
+
+.container {
+  height: 400px;
+  width: 400px;
+}
+
+.content-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-form h1 {
+  margin-bottom: 1.5rem;
+  cursor: default;
+}
+
+.content-form p {
+  font-size: 14px;
+  color: #958E8E;
+  margin-bottom: 1.5rem;
+  cursor: default;
+}
+
+.form {
+  flex-direction: column;
+  display: flex;
+}
+
+.form input {
+  margin-bottom: 1rem;
+  outline: none;
+  padding: 15px 40px;
+  border: none;
+  background-color: #fff;
+  border: 1px solid #1B98E0;
+  color: black;
+}
+
+.nomeFantasia{
+  background: url(../assets/icnEmpresa.png) no-repeat left / 17px;
+  background-position: 8px;
+}
+
+.cnpj{
+  background: url(../assets/icnEmpresa.png) no-repeat left / 17px;
+  background-position: 8px;
+}
+
+.emailResponsavel{
+  background: url(../assets/icnResponsavel.png) no-repeat left / 17px;
+  background-position: 8px;
+}
+
+.telefone{
+  background: url(../assets/icnTelefone.png) no-repeat left / 17px;
+  background-position: 8px;
+}
+
+.btn-enviar {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px #B8B8B8 solid;
+  cursor: pointer;
+}
+
+.btn-enviar button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 50px;
+  margin-top: 10px;
+  background-color: #007DFA;
+  border: none;
+  color: #FFF;
+}
+
+.btn-enviar img {
+  margin-left: 40px;
+  width: 6px;
+}
+
+.image-logoMobile {
+  width: 80px;
+  display: none;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .image-logoMobile {
+    width: 80px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+  }
+
+  .container_main {
+    display: none;
+  }
+
+  .section-rigth {
+    position: static;
+    transform: none;
+    margin-top: 170px;
+  }
+
+  .container {
+    height: auto;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .content-form p {
+    display: none;
+  }
+
+  .btn-enviar {
+    justify-content: center;
+    margin-top: 20px;
+    border-top: none;
+  }
+
+  .btn-enviar button {
+    width: 40%;
+    margin-left: 12rem;
+  }
+
+  .btn-enviar img {
+    display: none;
+  }
+
+  .form .user,
+  .form .email,
+  .form .password,
+  .form .confirmed-password {
+    display: none;
+  }
+}

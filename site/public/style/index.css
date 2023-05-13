@@ -1,0 +1,787 @@
+/* Reset CSS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    list-style: none;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body {
+    font-size: 100%;
+    height: 100%;
+    width: 100%;
+    background-color: #101017;
+}
+
+.container {
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-evenly;
+    height: 15%;
+    background-color: black;
+}
+
+header .logo-space {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+}
+
+header .logo-space .logo-content {
+    display: flex;
+    align-items: center;
+    width: 70%;
+}
+
+.logo-content img{
+    width: 40%;
+}
+
+header .logo-space .logo-content .logo-img {
+    height: 80%;
+    margin-right: 10px;
+}
+
+.material-symbols-outlined {
+    background-color: black;
+    color: white;
+    text-align: center;
+    display: none;
+    cursor: pointer;
+}
+
+header a{
+    font-weight: 400;
+}
+
+header ul {
+    width: 60%;
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu-button {
+    border-color: #1B98E0;
+    padding: 4px;
+}
+
+.menu-button:hover {
+    border-bottom: 1.5px solid #1B98E0;
+    cursor: pointer;
+}
+
+.login-button {
+    padding: 15px;
+    padding-left: 5px;
+    padding-right: 40px;
+    border: 1.5px solid #1B98E0;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    transition: 0.5s;
+    background-color: #1B98E0;
+}
+
+.home {
+    height: 100%;
+    background-image: url(../assets/home-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    cursor: default;
+}
+
+.home .home-content {
+    width: 80%;
+    height: 100%;
+}
+
+.home .home-content .slogan {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home .home-content .slogan>h2 {
+    color: #1B98E0;
+    font-size: 1em;
+    margin-bottom: 10px;
+    margin-left: 0;
+}
+
+.home .home-content .slogan h1 {
+    font-size: 4.2em;
+    width: 50%;
+    margin-bottom: 10%;
+}
+
+.home .home-content .cards {
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.home .home-content .cards .card {
+    width: 25%;
+    height: 80%;
+    background-color: #101017;
+    font-size: 1em;
+    border: 2px solid #1B98E0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home .home-content .cards .card .card-img-1,
+.card-img-2 {
+    display: block;
+    width: 19%;
+    height: 20%;
+}
+
+.card-img-3 {
+    width: 16%;
+    height: 25%;
+}
+
+.home .home-content .cards .card .card-img-1,
+.card-img-2,
+.card-img-3,
+.card-text {
+    margin: 5% 5% 0px 10%;
+    font-size: 1.2em;
+}
+
+.home .home-content .cards .card .card-text {
+    margin-top: 10%;
+}
+
+.home .home-content .cards .card .card-row {
+    border-color: #1B98E0;
+    width: 30%;
+    margin: 5% 0px 0px 10%;
+}
+
+body::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: #101017;        /* color of the tracking area */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #1B98E0;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid #313131;  /* creates padding around scroll thumb */
+  }
+
+/* Responsividade abaixo da seção do home */
+
+@media only screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+    }
+
+    header .logo-space {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    header .logo-space .logo-content .logo-text {
+        font-size: 1.1em;
+    }
+
+    .material-symbols-outlined {
+        display: block;
+    }
+
+    header ul {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        display: none;
+    }
+
+    .menu-button {
+        margin-bottom: 10px;
+    }
+
+    .home .home-content .slogan>h2 {
+        font-size: 0.5em;
+        text-align: center;
+    }
+
+    .home .home-content .slogan>h1 {
+        font-size: 3em;
+        margin-top: 3.5rem;
+    }
+
+    .home .home-content .cards {
+        flex-direction: column;
+    }
+
+    .home .home-content .cards .card {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .home .home-content .cards .card .card-img-1,
+    .card-img-2,
+    .card-img-3 {
+        width: 15%;
+        height: 30%;
+    }
+
+    .home .home-content .cards .card .card-row {
+        width: 100%;
+    }
+
+    .card-row {
+        display: none;
+    }
+}
+
+/* Fim seção home */
+
+.services {
+    height: 100%;
+    width: 100%;
+    background-color: #101017;
+    display: flex;
+    justify-content: center;
+    cursor: default;
+}
+
+.services .services-content {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.services .services-content .cards {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+}
+
+.services .services-content .cards .up-cards,
+.down-cards {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.services .services-content .cards .card {
+    height: 90%;
+    width: 30%;
+    background-color: #313131;
+    font-size: 0.8em;
+    border-bottom: 4px solid #D9D9D9;
+}
+
+.services .services-content .cards .card img {
+    width: 12%;
+    height: 20%;
+}
+
+.services .services-content .cards .card .phone {
+    width: 8%;
+    height: 19%;
+}
+
+.services .services-content .cards .card img,
+h2,
+p {
+    margin: 5% 5% 0px 10%;
+}
+
+.services .services-content>h2 {
+    font-size: 2.2em;
+    width: 50%;
+    margin: 0;
+}
+
+.services .services-content>p {
+    color: #1B98E0;
+    font-size: 1em;
+    margin: 5px 0px 10px 0px;
+}
+
+/* Responsividade abaixo da seção de serviços */
+
+@media screen and (max-width: 768px) {
+    .services {
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .services .services-content {
+        width: 90%;
+    }
+
+    .services .services-content>h2 {
+        font-size: 2.2em;
+        width: 100%;
+        text-align: center;
+        margin-top: 4rem;
+    }
+
+    .services .services-content>p {
+        font-size: 0.5em;
+        text-align: center;
+    }
+
+    .services .services-content .cards {
+        height: auto;
+        margin-top: 2rem;
+    }
+
+    .services .services-content .cards .up-cards,
+    .services .services-content .cards .down-cards {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .services .services-content .cards .card {
+        height: 40%;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .services .services-content .cards .card img {
+        width: 10%;
+        height: auto;
+    }
+
+    .services .services-content .cards .card .phone {
+        width: 7%;
+        height: auto;
+    }
+
+    .services .services-content .cards .card img,
+    .services .services-content .cards .card h2,
+    .services .services-content .cards .card p {
+        margin: 10px;
+        text-align: center;
+    }
+
+    .card-row {
+        display: none;
+    }
+}
+
+/* Fim seção service */
+
+.aboutUs {
+    height: 150%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #101017;
+}
+
+.aboutUs .aboutUs-content {
+    width: 80%;
+    height: 100%;
+    padding: 5% 0 5% 0;
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+}
+
+.aboutUs .aboutUs-content>h2 {
+    font-size: 2.2em;
+    margin: 0 0 5% 0;
+}
+
+.aboutUs .aboutUs-content .imgs {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aboutUs .aboutUs-content .imgs .vertical-img {
+    width: 45%;
+    margin-right: 5%;
+    height: 100%;
+    border: 1px solid #313131;
+    box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.877);
+}
+
+.aboutUs .aboutUs-content .imgs .vertical-img .vertical-img-1 {
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/kate-sade-2zZp12ChxhU-unsplash.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+}
+
+.vertical-img-1 h3 {
+    margin-left: 1rem;
+}
+
+.horizontal-img-1 h3 {
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.horizontal-img-2 h3 {
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.aboutUs .aboutUs-content .imgs .horizontal-imgs {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.aboutUs .aboutUs-content .imgs .horizontal-imgs .horizontal-img-1 {
+    min-height: 47.5%;
+    margin-bottom: 5%;
+    max-width: 100%;
+    background-image: url(../assets/callcenter.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #313131;
+    box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.877);
+}
+
+.aboutUs .aboutUs-content .imgs .horizontal-imgs .horizontal-img-2 {
+    min-height: 47.5%;
+    min-width: 100%;
+    background-image: url(../assets/handshaking.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #313131;
+    box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.877);
+}
+
+
+.m-v-v {
+    width: 100%;
+    margin-top: 5%;
+    display: flex;
+}
+
+.m-v-v .mission {
+    min-width: 33%;
+    max-width: 33%;
+}
+
+.mission p {
+    font-weight: 200;
+}
+
+.vision p {
+    font-weight: 200;
+}
+
+.values p {
+    font-weight: 200;
+}
+
+.m-v-v .vision {
+    min-width: 33%;
+    max-width: 33%;
+    border-left: 2px solid #1B98E0;
+    border-right: 2px solid #1B98E0;
+}
+
+.m-v-v .values {
+    min-width: 33%;
+    max-width: 33%;
+}
+
+/* Início da responsividade sobre a seção Sobre nós */
+
+@media (max-width: 768px) {
+    .aboutUs .aboutUs-content>h2 {
+        font-size: 2.2em;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .aboutUs .aboutUs-content .imgs {
+        display: none;
+    }
+
+    .m-v-v {
+        flex-wrap: wrap;
+        margin-top: 3%;
+        text-align: center;
+    }
+
+    .m-v-v .mission,
+    .m-v-v .vision,
+    .m-v-v .values {
+        min-width: 100%;
+        max-width: 100%;
+        border: none;
+        margin-bottom: 4rem;
+        border-bottom: 1px solid #1B98E0;
+        padding: 10px;
+    }
+
+    .aboutUs {
+        height: 80%;
+        width: 100%;
+    }
+}
+
+/* Fim da responsividade sobre a seção Sobre nós */
+
+.howItWorks {
+    width: 100%;
+    height: 120%;
+    padding-top: 5%;
+    background-color: #101017;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #313131;
+}
+
+
+.howItWorks-content {
+    width: 90%;
+    margin-bottom: 5rem;
+}
+
+.howItWorks-content>h2 {
+    text-align: center;
+    font-size: 2.2em;
+    margin: 0 0 1% 0;
+    cursor: default;
+}
+
+.howItWorks-content>h3 {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+    color: #1B98E0;
+    margin: 0 0 5% 0;
+    cursor: default;
+}
+
+.howItWorks .howItWorks-content .cards {
+    height: 80%;
+    width: 100%;
+    display: flex;
+}
+
+.howItWorks .howItWorks-content .cards .card {
+    width: 33%;
+    border: 2px solid #1B98E0;
+}
+
+.howItWorks .howItWorks-content .cards .card .card-img-4,
+.card-img-5,
+.card-img-6 {
+    height: 60%;
+}
+
+.howItWorks .howItWorks-content .cards .card .card-img-4 {
+    background-image: url(../assets/cellphone.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.howItWorks .howItWorks-content .cards .card .card-img-5 {
+    background-image: url(../assets/hard.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.howItWorks .howItWorks-content .cards .card .card-img-6 {
+    background-image: url(../assets/dashboard.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.howItWorks .howItWorks-content .cards .card .card-text-1,
+.card-text-2,
+.card-text-3 {
+    height: 40%;
+    width: 100%;
+}
+
+.howItWorks .howItWorks-content .cards .card p {
+    margin: 5%;
+    cursor: default;
+}
+
+/* Começo da responsividade da parte de Noticias */
+
+@media only screen and (max-width: 767px) {
+    .howItWorks {
+        height: auto;
+        padding: 50px 0;
+    }
+
+    .howItWorks-content {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .howItWorks .howItWorks-content .cards {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        height: auto;
+    }
+
+    .howItWorks .howItWorks-content .cards .card {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    .howItWorks .howItWorks-content .cards .card .card-img-4,
+    .card-img-5,
+    .card-img-6 {
+        height: 200px;
+    }
+
+    .howItWorks .howItWorks-content .cards .card .card-text-1,
+    .card-text-2,
+    .card-text-3 {
+        height: 50%;
+    }
+
+    .howItWorks .howItWorks-content .cards .card p {
+        margin: 3%;
+    }
+
+
+    .howItWorks-content > h2 {
+        text-align: center;
+        font-size: 2.2em;
+        cursor: default;
+    }
+
+    .howItWorks-content > h3 {
+        text-align: center;
+        font-size: 10px;
+        margin-bottom: 3rem;
+    }
+
+}
+
+/* Fim */
+
+footer {
+    background-color: #101017;
+    width: 100%;
+    height: 50vh;
+}
+
+footer .content-contact {
+    display: flex;
+    justify-content: space-around;
+    padding: 100px 20px;
+    border-bottom: 1px solid #1B98E0;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 150px;
+}
+
+.info h2 {
+    font-size: 20px;
+    margin-bottom: 2rem;
+    cursor: default;
+    text-align: center;
+}
+
+.info li,
+a {
+    font-size: 15px;
+    margin-top: 10px;
+    font-weight: 200;
+    text-align: center;
+}
+
+.content-redes {
+    background-color: #101017;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 70px;
+
+}
+
+.content-redes h3 {
+    font-size: 12px;
+    font-weight: 300;
+    cursor: default;
+}
+
+.content-redes img {
+    margin-left: 20px;
+    width: 20px;
+}
+
+/* Começo responsividade do Footer */
+
+@media only screen and (max-width: 767px) {
+    footer{
+        height: auto;
+        padding: 5px 60px;
+    }
+
+    .content-contact{
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        height: auto;
+    }
+
+    .info{
+        margin-top: 5rem;
+    }
+
+    .content-redes{
+        display: none;
+    }
+}
+
+/* Fim */

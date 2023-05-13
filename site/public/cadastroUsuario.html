@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WS | Cadastro Usuário</title>
+  <link rel="stylesheet" href="./style/cadastro_usuario.css">
+  <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
+  <script src="js/script.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<body>
+  <div class="top">
+    <a onclick="voltarHomeLogin()">
+      <img src="./assets/arrow-left-blue.png" alt="Botão voltar">
+      Voltar
+    </a>
+  </div>
+
+  <div class="container_main">
+    <div class="image_main">
+      <div class="logo">
+        <span><img src="./assets/logoCompleto.png"></span>
+      </div>
+
+      <div class="bottom">
+        <a href="" target="_blank">
+          <img src="./assets/logo-instagram.png" alt="Instagram">
+        </a>
+        <a href="" target="_blank">
+          <img src="./assets/logo-facebook.png" alt="Instagram">
+        </a>
+        <a href="" target="_blank">
+          <img src="./assets/logo-twitter.png" alt="Twitter">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section class="section-rigth">
+    <div class="container">
+      <div class="content-form">
+        <img src="./assets/Logo-mobile.png" alt="" class="image-logoMobile">
+        <h1>Cadastro de Usuário</h1>
+        <p>Por favor, preencha suas informações abaixo</p>
+        <div class="form">
+          <div class="custom-select">
+            <select id="select_user">
+              <option value="#">Selecione o usuário</option>
+              <option value="supervisor">Supervisor</option>
+              <option value="suporte">Suporte TI</option>
+              <option value="atendente">Atendente</option>
+            </select>
+          </div>
+          <input type="text" placeholder="Usuário" id="input_user" class="input_user">
+          <input type="email" placeholder="Email" id="input_email" class="input_email">
+          <input onfocus="mostrar_requisitos()" class="input_senha" type="password" placeholder="Senha"
+            onkeyup="requisitos_senha()" id="input_senha">
+          <div style="color: gray; font-size: 12px; display: none;" id="requisitos">
+            <span id="min_char">➢ A senha deve conter no mínimo 8 caracteres;</span>
+            <span id="char_maiusculo">➢ A senha deve conter uma letra maiúscula;</span>
+            <span id="char_special">➢ A senha deve conter um caracter especial;</span>
+          </div>
+          <input type="password" placeholder="Confirmar Senha" class="confirmar_senha" id="input_confirmar_senha">
+          <div class="btn-enviar">
+            <button onclick="cadastrar_usuario()" id="botao_cadastrar"><span>Enviar</span><img src="./assets/Path.png"
+                alt=""></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+ 
+</html>
+
+<script>
+  function cadastrar_usuario() {
+    const idEmpresaVar = sessionStorage.getItem("ID_EMPRESA");
+    var nomeUsuarioVar = input_user.value;
+    var opcaoSelecionadaVar = select_user.value;
+    var emailVar = input_email.value;
+    var senhaVar = input_senha.value;
+
+    if (nomeUsuarioVar == "" || emailVar == "" || senhaVar == "" || opcaoSelecionadaVar == "") {
+      swal("Erro!", "Preencha todos os campos", "error");
+      return false;
+    }
+    else {
+      fetch("/usuarios/cadastrar_usuario", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          idEmpresaServer: idEmpresaVar,
+          nomeUsuarioServer: nomeUsuarioVar,
+          opcaoEscolhidaServer: opcaoSelecionadaVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar,
+        })
+      }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          swal("Cadastro realizado com sucesso!", "Redirecionando...", "success");
+          resposta.json().then(json => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+
+            sessionStorage.ID_USUARIO = json[0].idUsuario;
+            sessionStorage.ID_EMPRESA = json.fkEmpresa;
+
+            switch (opcaoSelecionadaVar) {
+              case "supervisor":
+                setTimeout(() => {
+                  window.location = "./dashboard/graficos.html";
+                }, 2000);
+                break;
+
+              case "suporte":
+                setTimeout(() => {
+                  window.location = "./dashboard/dashboardSuporte.html";
+                }, 2000);
+                break;
+
+              case "atendente":
+                setTimeout(() => {
+                  window.location = "./dashboard/awards.html";
+                }, 2000);
+                break;
+
+              default:
+                console.log("Opção inválida");
+                break;
+            }
+
+          });
+        } else {
+          swal("Houve um erro ao tentar realizar o cadastro!", "Erro", "error");
+          throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+      return false;
+    }
+  }
+
+  //
+
+  var x, i, j, l, ll, selElmnt, a, b, c;
+  /* Look for any elements with the class "custom-select": */
+  x = document.getElementsByClassName("custom-select");
+  l = x.length;
+  for (i = 0; i < l; i++) {
+    selElmnt = x[i].getElementsByTagName("select")[0];
+    ll = selElmnt.length;
+    /* For each element, create a new DIV that will act as the selected item: */
+    a = document.createElement("DIV");
+    a.setAttribute("class", "select-selected");
+    a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+    x[i].appendChild(a);
+    /* For each element, create a new DIV that will contain the option list: */
+    b = document.createElement("DIV");
+    b.setAttribute("class", "select-items select-hide");
+    for (j = 1; j < ll; j++) {
+      /* For each option in the original select element,
+      create a new DIV that will act as an option item: */
+      c = document.createElement("DIV");
+      c.innerHTML = selElmnt.options[j].innerHTML;
+      c.addEventListener("click", function (e) {
+        /* When an item is clicked, update the original select box,
+        and the selected item: */
+        var y, i, k, s, h, sl, yl;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        sl = s.length;
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < sl; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            yl = y.length;
+            for (k = 0; k < yl; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
+          }
+        }
+        h.click();
+      });
+      b.appendChild(c);
+    }
+    x[i].appendChild(b);
+    a.addEventListener("click", function (e) {
+      /* When the select box is clicked, close any other select boxes,
+      and open/close the current select box: */
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("select-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+  }
+
+  function closeAllSelect(elmnt) {
+    /* A function that will close all select boxes in the document,
+    except the current select box: */
+    var x, y, i, xl, yl, arrNo = [];
+    x = document.getElementsByClassName("select-items");
+    y = document.getElementsByClassName("select-selected");
+    xl = x.length;
+    yl = y.length;
+    for (i = 0; i < yl; i++) {
+      if (elmnt == y[i]) {
+        arrNo.push(i)
+      } else {
+        y[i].classList.remove("select-arrow-active");
+      }
+    }
+    for (i = 0; i < xl; i++) {
+      if (arrNo.indexOf(i)) {
+        x[i].classList.add("select-hide");
+      }
+    }
+  }
+
+  /* If the user clicks anywhere outside the select box,
+  then close all select boxes: */
+  document.addEventListener("click", closeAllSelect);
+</script>
