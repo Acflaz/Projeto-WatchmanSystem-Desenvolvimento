@@ -14,4 +14,8 @@ function cadastrarMaquina(){
     location = "telaMaquina.html";
 }
 
+function atualizarMetricas(){
+    location = "graficos.html";
+}
+
 // Sroll

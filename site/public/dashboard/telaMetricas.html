@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metricas | Empresa</title>
+    <link rel="stylesheet" href="telaMetricas.css">
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="" onclick="home()">
+        </div>
+        <nav>
+            <li><a href="../dashboard/graficos.html">
+                    <img src="assets/casa.png" class="campo-usuario" alt="">
+                </a></li>
+        </nav>
+        <div class="logout">
+            <li><a href="../login.html">
+                    <img src="assets/sair.png" alt="">
+                </a></li>
+        </div>
+    </header>
+
+    <main class="home-section">
+        <section class="section-perfil">
+            <div class="containerPerfil">
+                <div class="contentImage" id="imageUser">
+
+                </div>
+                <div class="contentName">
+                    <p id="nameUser">Erick San.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-create">
+            <div class="containerMetricas">
+                <div class="button-title">
+                    <div class="title">
+                        <h1>Atualizar métricas</h1>
+                        <p>Padronize suas métricas conforme sua regra de negócio. É muito importante que o devido
+                            responsável coloque TODAS as quantidades mínimas e máximas de cada componente abaixo.
+                            Isso serve para o funcionamento de suas dashboards! 😄</p>
+                    </div>
+                    <div class="button">
+                        <img src="../assets/image 1.png" alt="" onclick="atualizarMetricas()">
+                    </div>
+                </div>
+                <div class="form">
+                    <div class="form-left">
+                        <div class="form-inputMarca">
+                            <label for="minimo-cpu">Minímo CPU</label>
+                            <input type="text" id="minimoCpu" placeholder="Quantidade em %">
+                        </div>
+                        <div class="form-inputModelo">
+                            <label for="minimo-disco">Minímo Disco</label>
+                            <input type="text" id="minimoDisco" placeholder="Quantidade em %">
+                        </div>
+                        <div class="form-inputInfoHardware">
+                            <label for="minimo-rede">Minímo rede</label>
+                            <input type="text" id="minimoRede" placeholder="Quantidade em %">
+                        </div>
+                    </div>
+
+                    <div class="mid">
+                        <p>|</p>
+                    </div>
+
+                    <div class="form-rigth">
+                        <div class="form-inputMarca">
+                            <label for="maximo-cpu">Máximo CPU</label>
+                            <input type="text" id="maximacpu" placeholder="Quantidade em %">
+                        </div>
+                        <div class="form-inputModelo">
+                            <label for="maximo-disco">Máximo Disco</label>
+                            <input type="text" id="maximodisco" placeholder="Quantidade em %">
+                        </div>
+                        <div class="form-inputInfoHardware">
+                            <label for="maximo-rede">Máximo Rede</label>
+                            <input type="text" id="maximorede" placeholder="Quantidade em %">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>
+
+<script>
+    function atualizarMetricas() {
+        const idEmpresaVar = sessionStorage.getItem("ID_EMPRESA");
+        var minimoCpuVar = minimoCpu.value;
+        var minimoDiscoVar = minimoDisco.value;
+        var minimoRedeVar = minimoRede.value;
+        var maximoCpuVar = maximacpu.value;
+        var maximoDiscoVar = maximodisco.value;
+        var maximoRedeVar = maximorede.value;
+    
+        
+        if (minimoCpuVar == "" || minimoDiscoVar == "" || minimoRedeVar == "" || maximoCpuVar == "" || maximoDiscoVar == "" || maximoRedeVar == "") {
+        
+            swal("Erro!", "Preencha todos os campos", "error");
+            alert("ERRO AQUI 1.1")
+
+            return false;
+        }
+        else {
+            fetch("/usuarios/atualizarMetricas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idEmpresaServer: idEmpresaVar,
+                    minimoCpuSever: minimoCpuVar,
+                    minimoDiscoServe: minimoDiscoVar,
+                    minimoRedeSever: minimoRedeVar,
+                    maximoCpuServer: maximoCpuVar,
+                    maximoDiscoServer: maximoDiscoVar,
+                    maximoRedeServer: maximoRedeVar
+                })
+            }).then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    swal("Atualização realizado com sucesso!", " Atualizado", "success");
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+
+                        sessionStorage.ID_EMPRESA = json.fkEmpresa;
+
+
+                        setTimeout(function () {
+                            window.location = "graficos.html";
+                        }, 2000); // apenas para exibir o loading
+                    });
+
+                } else {
+                    swal("Houve um erro ao tentar atualizar as métricas", "Erro", "error");
+                    throw ("Houve um erro ao tentar realizar as métricas!");
+                
+                }
+            }).catch(function (resposta) {
+               
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+
+            return false;
+        }
+        
+    }
+</script>
