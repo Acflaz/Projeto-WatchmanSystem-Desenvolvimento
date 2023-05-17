@@ -140,6 +140,7 @@ function criar_maquina(req, res) {
     var nomeModeloVar = req.body.nomeModeloServer;
     var RAMVar = req.body.RAMServer;
     var CPUVar = req.body.CPUServer;
+    var IPVar = req.body.IPServer;
     var idEmpresa = req.body.idEmpresaServer;
     var idUsuario = req.body.idUsuarioServer;
 
@@ -153,10 +154,42 @@ function criar_maquina(req, res) {
         res.status(400).send("A RAM está undefined!");
     } else if (CPUVar == undefined){
         res.status(400).send("A CPU está undefined!");
+    } else if(IPVar == undefined){
+        res.status(400).send("O IP do notebook está undefined!");
     } else if(idUsuario == undefined){
-        res.status(400).send("O idUsuario está undefined!");
+        res.status(400).send("O id do Usuário está undefined!");
     } else {
-        usuarioModel.criar_maquina(nomeMarcaVar, nomeModeloVar, RAMVar, CPUVar, idUsuario, idEmpresa)
+        usuarioModel.criar_maquina(nomeMarcaVar, nomeModeloVar, RAMVar, CPUVar, IPVar, idUsuario, idEmpresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function excluir_maquina(req, res) {
+    var nomeMarcaVar = req.body.nomeMarcaServer;
+    var idEmpresa = req.body.idEmpresaServer;
+    var IPVar = req.body.IPServer;
+
+    if (idEmpresa == undefined) {
+        res.status(400).send("O id está undefined!");
+    } else if (nomeMarcaVar == undefined) {
+        res.status(400).send("A marca está undefined!");
+    } else if(IPVar == undefined){
+        res.status(400).send("O ip da máquina está undefined!");
+    } else {
+        usuarioModel.excluir_maquina(nomeMarcaVar, IPVar, idEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -179,6 +212,7 @@ module.exports = {
     cadastrar_empresa,
     cadastrar_usuario,
     criar_maquina,
+    excluir_maquina,
     listar,
     testar
 }

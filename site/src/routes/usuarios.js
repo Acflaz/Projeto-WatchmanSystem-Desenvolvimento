@@ -25,6 +25,10 @@ router.post("/criar_maquina", function (req, res) {
     usuarioController.criar_maquina(req, res);
 });
 
+router.post("/excluir_maquina", function (req, res) {
+    usuarioController.excluir_maquina(req, res);
+});
+
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });

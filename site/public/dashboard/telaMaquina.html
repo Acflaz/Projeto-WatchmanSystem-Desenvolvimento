@@ -64,6 +64,10 @@
                         <label for="velocidadeCPU">Velocidade do CPU</label>
                         <input type="text" id="velocidadeCPU">
                     </div>
+                    <div class="form-inputInfoHardware">
+                        <label for="ipNotebook">IP do Notebook</label>
+                        <input type="text" id="ipNotebook">
+                    </div>
                 </div>
                 <section class="section-right">
                     <div class="containerButtons">
@@ -71,7 +75,7 @@
                             <button onclick="criar_maquina()">Criar Máquina</button>
                         </div>
                         <div class="button-excluir">
-                            <button onclick="excluirMaquina()">Excluir Máquina</button>
+                            <button onclick="excluir_maquina()">Excluir Máquina</button>
                         </div>
                     </div>
                 </section>
@@ -90,10 +94,10 @@
         var nomeModeloVar = modeloMaquina.value;
         var RAMVar = capacidadeRAM.value;
         var CPUVar = velocidadeCPU.value;
+        var IPVar = ipNotebook.value;
 
-        if (nomeMarcaVar == "" || nomeModeloVar == "" || RAMVar == "" || CPUVar == "") {
+        if (nomeMarcaVar == "" || nomeModeloVar == "" || RAMVar == "" || CPUVar == "" || IPVar == "") {
             swal("Erro!", "Preencha todos os campos", "error");
-
             return false;
         }
         else {
@@ -108,7 +112,8 @@
                     nomeMarcaServer: nomeMarcaVar,
                     nomeModeloServer: nomeModeloVar,
                     RAMServer: RAMVar,
-                    CPUServer: CPUVar
+                    CPUServer: CPUVar,
+                    IPServer: IPVar
                 })
             }).then(function (resposta) {
 
@@ -116,6 +121,64 @@
 
                 if (resposta.ok) {
                     swal("Cadastro realizado com sucesso!", " Redirecionando para tela de Login...", "success");
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        sessionStorage.ID_USUARIO = json.idUsuario;
+                        // console(json.idUsuario);
+                        // console(json.fkEmpresa);
+                        sessionStorage.ID_EMPRESA = json.fkEmpresa;
+
+
+                        setTimeout(function () {
+                            window.location = "telaMaquina.html";
+                        }, 2000); // apenas para exibir o loading
+                    });
+
+                } else {
+                    swal("Houve um erro ao tentar realizar o cadastro!", "Erro", "error");
+                    throw ("Houve um erro ao tentar realizar o cadastro!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+
+            return false;
+        }
+    }
+
+    //Função de Excluir Máquina
+    function excluir_maquina() {
+        const idUsuarioVar = sessionStorage.getItem("ID_USUARIO");
+        const idEmpresaVar = sessionStorage.getItem("ID_EMPRESA");
+        var nomeMarcaVar = marcaMaquina.value;
+        var IPVar = ipNotebook.value;
+
+        if (nomeMarcaVar == "" || IPVar == "") {
+            swal("Erro!", "Preencha todos os campos", "error");
+
+            return false;
+        }
+        else {
+            fetch("/usuarios/excluir_maquina", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idUsuarioServer: idUsuarioVar,
+                    idEmpresaServer: idEmpresaVar,
+                    nomeMarcaServer: nomeMarcaVar,
+                    IPServer: IPVar
+                })
+            }).then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    swal("Máquina excluída com sucesso!", " Redirecionando para tela de Login...", "success");
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json));
