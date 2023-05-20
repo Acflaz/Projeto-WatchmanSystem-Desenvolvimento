@@ -12,6 +12,14 @@ body {
     background-color: #101017;
 }
 
+main{
+    background-color: #101017;
+    position: relative;
+    width: calc(100% - 60px);
+    min-height: 100vh;
+    left: 60px;
+}
+
 .logo {
     display: flex;
     align-items: center;

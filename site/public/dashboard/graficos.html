@@ -13,140 +13,142 @@
 </head>
 
 <body>
-    <section class="navbar">
-        <div class="logo">
-            <img src="assets/logo.png" alt="" onclick="home()">
-        </div>
-        <nav>
-            <li><a href="../cadastroUsuario.html">
-                <img src="assets/cadastro.png" class="campo-usuario" alt="" >
-            </a></li>
-            <li><a href="">
-                    <img src="assets/configuracoes.png" alt="">
-                </a></li>
-        </nav>
-        <div class="logout">
-            <li><a href="../login.html">
-                    <img src="assets/sair.png" alt="">
-                </a></li>
-        </div>
-    </section>
-
-    <section class="sectionPerfil" onclick="entrarPerfil()">
-        <div class="containerPerfil">
-            <div class="contentImage" id="imageUser">
-
+    <main>
+        <section class="navbar">
+            <div class="logo">
+                <img src="assets/logo.png" alt="" onclick="home()">
             </div>
-            <div class="contentName">
-                <p id="nameUser">Erick San.</p>
+            <nav>
+                <li><a href="../cadastroUsuario.html">
+                        <img src="assets/cadastro.png" class="campo-usuario" alt="">
+                    </a></li>
+                <li><a href="">
+                        <img src="assets/configuracoes.png" alt="">
+                    </a></li>
+            </nav>
+            <div class="logout">
+                <li><a href="../login.html">
+                        <img src="assets/sair.png" alt="">
+                    </a></li>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!---->
-    <section class="sectionKpi">
-        <div class="containerKPI">
-            <h1> Indicadores de Produtividade: </h1>
-            <div class="informationAnalytics">
-                <div class="graficoKpi">
-                    <canvas id="kpi"></canvas>
+        <section class="sectionPerfil" onclick="entrarPerfil()">
+            <div class="containerPerfil">
+                <div class="contentImage" id="imageUser">
+
+                </div>
+                <div class="contentName">
+                    <p id="nameUser">Erick San.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="sectionTelas">
-        <div class="primeiroGrupo">
-            <div class="containerTela1">
-                <!-- <h1>Tela 1</h1>
+        <!---->
+        <section class="sectionKpi">
+            <div class="containerKPI">
+                <h1> Indicadores de Produtividade: </h1>
+                <div class="informationAnalytics">
+                    <div class="graficoKpi">
+                        <canvas id="kpi"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="sectionTelas">
+            <div class="primeiroGrupo">
+                <div class="containerTela1">
+                    <!-- <h1>Tela 1</h1>
                 <div class="contentProdutividade">
                     <canvas id="computador1"></canvas>
                     <p class="lblProdutividade">Produtividade</p>
                 </div> -->
-            </div>
-            <div class="containerTela2">
-                <!-- <h1>Tela 2</h1>
+                </div>
+                <div class="containerTela2">
+                    <!-- <h1>Tela 2</h1>
                 <div class="contentProdutividade">
                     <canvas id="computador2"></canvas>
                     <p class="lblProdutividade">Produtividade</p>
                 </div> -->
-            </div>
-            <div class="containerTela3">
-                <!-- <h1>Tela 3</h1>
+                </div>
+                <div class="containerTela3">
+                    <!-- <h1>Tela 3</h1>
                 <div class="contentProdutividade">
                     <canvas id="computador3"></canvas>
                     <p class="lblProdutividade">Produtividade</p>
                 </div> -->
-            </div>
-            <div class="containerTela4">
-                <!-- <h1>Tela 4</h1>
+                </div>
+                <div class="containerTela4">
+                    <!-- <h1>Tela 4</h1>
                 <div class="contentProdutividade">
                     <canvas id="computador4"></canvas>
                     <p class="lblProdutividade">Produtividade</p>
                 </div> -->
+                </div>
             </div>
-        </div>
 
 
 
-        <div class="segundoGrupo">
-            <div class="containerTela5">
-                <!-- <h1>Tela 5</h1>
+            <div class="segundoGrupo">
+                <div class="containerTela5">
+                    <!-- <h1>Tela 5</h1>
                 <div class="contentProdutividade">
                     <canvas id="computador5"></canvas>
                     <p class="lblProdutividade">Produtividade</p>
                 </div> -->
-            </div>
-            <div class="containerTela6">
-                <!-- <h1>Tela 6</h1>
+                </div>
+                <div class="containerTela6">
+                    <!-- <h1>Tela 6</h1>
                 <div class="contentProdutividade">
                     <canvas id="computador6"></canvas>
                     <p class="lblProdutividade">Produtividade</p>
                 </div> -->
-            </div>
-            <!-- <div class="containerTela7">
+                </div>
+                <!-- <div class="containerTela7">
                 <h1>Tela 7</h1>
                 <div class="contentProdutividade">
                     <canvas id="computador7"></canvas>
                     <p class="lblProdutividade">Produtividade</p>
                 </div>
             </div> -->
-            <div class="containerTela8" onclick="cadastrarMaquina()">
-                <h1>+</h1>
+                <div class="containerTela8" onclick="cadastrarMaquina()">
+                    <h1>+</h1>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 </body>
 
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+
 <script>
     // Gráfico KPI
     const ctx = document.getElementById('kpi');
     new Chart(ctx, {
-      //type: 'polarArea',
-      type: 'pie',
-      data: {
-        datasets: [{
-            label: '# of Votes',
-            data: [3, 2, 1],
-            borderWidth: 1,
-            backgroundColor: [
-            'rgb(36, 224, 96)',
-            'rgb(240, 217, 46)',
-            'rgb(250, 77, 77)'],
-        }],
-        labels: ['Produtivo(consumo: 30%-65%)', 'Inprodutivo(consumo: <30%)', 'Defeito máquina(consumo: >65%)'] 
+        //type: 'polarArea',
+        type: 'pie',
+        data: {
+            datasets: [{
+                label: '# of Votes',
+                data: [3, 2, 1],
+                borderWidth: 1,
+                backgroundColor: [
+                    'rgb(36, 224, 96)',
+                    'rgb(240, 217, 46)',
+                    'rgb(250, 77, 77)'],
+            }],
+            labels: ['Produtivo(consumo: 30%-65%)', 'Inprodutivo(consumo: <30%)', 'Defeito máquina(consumo: >65%)']
         },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
-      }
     });
 
     //Gráficos monitoração
@@ -183,9 +185,9 @@
         options: {}
     };
     const tela1 = new Chart(
-        document.getElementById('computador1'),config_tela1
+        document.getElementById('computador1'), config_tela1
     );
-  
+
     const dataTela2 = {
         labels: horas,
         datasets: [{
@@ -201,9 +203,9 @@
         options: {}
     };
     const tela2 = new Chart(
-        document.getElementById('computador2'),config_tela2
+        document.getElementById('computador2'), config_tela2
     );
-    
+
     const dataTela3 = {
         labels: horas,
         datasets: [{
@@ -219,9 +221,9 @@
         options: {}
     };
     const tela3 = new Chart(
-        document.getElementById('computador3'),config_tela3
+        document.getElementById('computador3'), config_tela3
     );
-    
+
     const dataTela4 = {
         labels: horas,
         datasets: [{
@@ -237,9 +239,9 @@
         options: {}
     };
     const tela4 = new Chart(
-        document.getElementById('computador4'),config_tela4
+        document.getElementById('computador4'), config_tela4
     );
-    
+
     const dataTela5 = {
         labels: horas,
         datasets: [{
@@ -255,9 +257,9 @@
         options: {}
     };
     const tela5 = new Chart(
-        document.getElementById('computador5'),config_tela5
+        document.getElementById('computador5'), config_tela5
     );
-    
+
     const dataTela6 = {
         labels: horas,
         datasets: [{
@@ -273,9 +275,9 @@
         options: {}
     };
     const tela6 = new Chart(
-        document.getElementById('computador6'),config_tela6
+        document.getElementById('computador6'), config_tela6
     );
-    
+
     const dataTela7 = {
         labels: horas,
         datasets: [{
@@ -291,8 +293,8 @@
         options: {}
     };
     const tela7 = new Chart(
-        document.getElementById('computador7'),config_tela7
+        document.getElementById('computador7'), config_tela7
     );
-    
-    
+
+
 </script>

@@ -2,208 +2,208 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="dashboardSuporte.css">
-    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
-    <script src="script.js"></script>
-    <title>Dashboard | Home</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="dashboardSuporte.css">
+  <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Dashboard | Home</title>
 </head>
 
 <body>
-    <section class="navbar">
-        <div class="logo">
-            <img src="assets/logo.png" alt="">
-        </div>
-        <nav>
-            <li><a href="">
-                    <img src="assets/casa.png" alt="">
-                </a></li>
-        </nav>
-        <div class="logout">
-            <li><a href="../login.html">
-                    <img src="assets/sair.png" alt="">
-                </a></li>
-        </div>
-    </section>
+  <section class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="">
+    </div>
+    <nav>
+      <li><a href="">
+          <img src="assets/casa.png" alt="">
+        </a></li>
+    </nav>
+    <div class="logout">
+      <li><a href="../login.html">
+          <img src="assets/sair.png" alt="">
+        </a></li>
+    </div>
+  </section>
 
+  <main>
     <section class="sectionPerfil" onclick="entrarPerfil()">
-        <div class="containerPerfil">
-            <div class="contentImage" id="imageUser">
+      <div class="containerPerfil">
+        <div class="contentImage" id="imageUser">
 
-            </div>
-            <div class="contentName">
-                <p id="nameUser">Marcelo A.</p>
-            </div>
         </div>
+        <div class="contentName">
+          <p id="nameUser">Marcelo A.</p>
+        </div>
+      </div>
+    </section>
+    <section class="sectionKPI">
+      <div class="GroupKPI">
+        <div class="containerKPI">
+          <img src="assets/cpu-do-computador.png" alt="">
+          <div class="contentHorizontal">
+            <h1>CPU</h1>
+          </div>
+          <div class="contentVertical">
+            <p>% de utilização</p>
+          </div>
+          <div class="contentVerticalParametro">
+            <p>12<span>%</span></p>
+          </div>
+        </div>
+        <div class="containerGrafico">
+          <div class="contentGrafico">
+            <canvas id="kpi"></canvas>
+          </div>
+        </div>
+        <div class="containerKPI">
+          <img src="assets/cartao-de-memoria.png" alt="">
+          <div class="containerKPI1">
+            <div class="contentHorizontal">
+              <!-- <img src="assets/cpu-do-computador.png" alt=""> -->
+              <h1>Memória</h1>
+            </div>
+            <div class="contentVertical">
+              <p>% de utilização</p>
+            </div>
+            <div class="contentVerticalParametro">
+              <p>50<span>%</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <main>
-        <section class="sectionKPI">
-            <div class="GroupKPI">
-                <div class="containerKPI">
-                    <img src="assets/cpu-do-computador.png" alt="">
-                    <div class="contentHorizontal">
-                        <h1>CPU</h1>
-                    </div>
-                    <div class="contentVertical">
-                        <p>% de utilização</p>
-                    </div>
-                    <div class="contentVerticalParametro">
-                        <p>12<span>%</span></p>
-                    </div>
-                </div>
-                <div class="containerKPI">
-                    <img src="assets/cartao-de-memoria.png" alt="">
-                    <div class="containerKPI1">
-                        <div class="contentHorizontal">
-                            <!-- <img src="assets/cpu-do-computador.png" alt=""> -->
-                            <h1>Memória</h1>
-                        </div>
-                        <div class="contentVertical">
-                            <p>% de utilização</p>
-                        </div>
-                        <div class="contentVerticalParametro">
-                            <p>50<span>%</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="containerKPI">
-                    <img src="assets/disco-rigido.png" alt="">
-                    <div class="containerKPI1">
-                        <div class="contentHorizontal">
-                            <!-- <img src="assets/cpu-do-computador.png" alt=""> -->
-                            <h1>Disco</h1>
-                        </div>
-                        <div class="contentVertical">
-                            <p>% de utilização</p>
-                        </div>
-                        <div class="contentVerticalParametro">
-                            <p>2<span>%</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="containerKPI">
-                    <img src="assets/rede.png" alt="">
-                    <div class="containerKPI1">
-                        <div class="contentHorizontal">
-                            <!-- <img src="assets/cpu-do-computador.png" alt=""> -->
-                            <h1>Rede</h1>
-                        </div>
-                        <div class="contentVertical">
-                            <p>% de utilização</p>
-                        </div>
-                        <div class="contentVerticalParametro">
-                            <p>1<span>%</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="sectionTelas" onclick="entrarGrafico()">
-            <div class="primeiroGrupo">
-                <div class="containerTela" style=" border-bottom: red 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 1</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-                  <div class="containerTela" style=" border-bottom: red 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 2</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-                  <div class="containerTela" style=" border-bottom: red 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 3</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-                  <div class="containerTela" style=" border-bottom: red 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 4</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-            </div>
+    <section class="sectionTelas" onclick="entrarGrafico()">
+      <div class="primeiroGrupo">
+        <div class="containerTela" style=" border-bottom: red 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 1</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+        <div class="containerTela" style=" border-bottom: red 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 2</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+        <div class="containerTela" style=" border-bottom: red 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 3</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+        <div class="containerTela" style=" border-bottom: red 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 4</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+      </div>
 
 
 
-            <div class="segundoGrupo">
-                <div class="containerTela" style=" border-bottom: yellow 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 5</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-                  <div class="containerTela" style=" border-bottom: yellow 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 6</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-                  <div class="containerTela" style=" border-bottom: yellow 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 7</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-                  <div class="containerTela" style=" border-bottom: yellow 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 8</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-            </div>
+      <div class="segundoGrupo">
+        <div class="containerTela" style=" border-bottom: yellow 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 5</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+        <div class="containerTela" style=" border-bottom: yellow 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 6</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+        <div class="containerTela" style=" border-bottom: yellow 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 7</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+        <div class="containerTela" style=" border-bottom: yellow 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 8</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+      </div>
 
-            <div class="segundoGrupo">
-                <div class="containerTela" style=" border-bottom: green 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 9</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-                  <div class="containerTela" style=" border-bottom: green 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 10</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-                  <div class="containerTela" style=" border-bottom: green 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 11</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-                  <div class="containerTela" style=" border-bottom: green 5px solid;">
-                    <p class="date">Dezembro 20, 2021</p>
-                    <div class="contentVerticalTelas">
-                      <h1>Máquina 12</h1>
-                    </div>
-                    <p class="hours">09:25</p>
-                  </div>
-            </div>
-        </section>
-    </main>
+      <div class="segundoGrupo">
+        <div class="containerTela" style=" border-bottom: green 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 9</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+        <div class="containerTela" style=" border-bottom: green 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 10</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+        <div class="containerTela" style=" border-bottom: green 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 11</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+        <div class="containerTela" style=" border-bottom: green 5px solid;">
+          <p class="date">Dezembro 20, 2021</p>
+          <div class="contentVerticalTelas">
+            <h1>Máquina 12</h1>
+          </div>
+          <p class="hours">09:25</p>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 
 </html>
 <script>
-    function semPermissao() {
-        alert("Você não possui permissão para cadastrar usuários")
+  // Gráfico KPI
+  const ctx = document.getElementById('kpi');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        label: 'Quantidade',
+        data: [4, 4, 4],
+        borderWidth: 1,
+        backgroundColor: [
+          'rgb(36, 224, 96)',
+          'rgb(240, 217, 46)',
+          'rgb(250, 77, 77)'
+        ],
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false, // impede que o gráfico mantenha a proporção padrão
+      width: 100, // largura do gráfico em pixels
+      height: 100 // altura do gráfico em pixels
     }
+  });
+
+
+  function semPermissao() {
+    alert("Você não possui permissão para cadastrar usuários")
+  }
 </script>
