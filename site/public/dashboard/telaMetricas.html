@@ -52,7 +52,7 @@
                             Isso serve para o funcionamento de suas dashboards! 😄</p>
                     </div>
                     <div class="button">
-                        <img src="../assets/image 1.png" alt="" onclick="atualizarMetricas()">
+                        <img src="../assets/image 1.png" alt="" onclick="updateForm()">
                     </div>
                 </div>
                 <div class="form">
@@ -62,12 +62,8 @@
                             <input type="text" id="minimoCpu" placeholder="Quantidade em %">
                         </div>
                         <div class="form-inputModelo">
-                            <label for="minimo-disco">Minímo Disco</label>
-                            <input type="text" id="minimoDisco" placeholder="Quantidade em %">
-                        </div>
-                        <div class="form-inputInfoHardware">
-                            <label for="minimo-rede">Minímo rede</label>
-                            <input type="text" id="minimoRede" placeholder="Quantidade em %">
+                            <label for="minimo-memoria">Minímo Memória</label>
+                            <input type="text" id="minimoMemoria" placeholder="Quantidade em %">
                         </div>
                     </div>
 
@@ -81,14 +77,16 @@
                             <input type="text" id="maximacpu" placeholder="Quantidade em %">
                         </div>
                         <div class="form-inputModelo">
-                            <label for="maximo-disco">Máximo Disco</label>
-                            <input type="text" id="maximodisco" placeholder="Quantidade em %">
+                            <label for="maximo-memoria">Máximo Memória</label>
+                            <input type="text" id="maximoMemoria" placeholder="Quantidade em %">
                         </div>
-                        <div class="form-inputInfoHardware">
-                            <label for="maximo-rede">Máximo Rede</label>
-                            <input type="text" id="maximorede" placeholder="Quantidade em %">
-                        </div>
+
                     </div>
+                </div>
+
+                
+                <div class="button-criar">
+                    <button onclick="atualizarMetricas()">Cadastrar Metricas</button>
                 </div>
 
             </div>
@@ -103,14 +101,13 @@
     function atualizarMetricas() {
         const idEmpresaVar = sessionStorage.getItem("ID_EMPRESA");
         var minimoCpuVar = minimoCpu.value;
-        var minimoDiscoVar = minimoDisco.value;
-        var minimoRedeVar = minimoRede.value;
+        var minimoMemoriaVar = minimoMemoria.value;
         var maximoCpuVar = maximacpu.value;
-        var maximoDiscoVar = maximodisco.value;
-        var maximoRedeVar = maximorede.value;
+        var maximoMemoriaVar = maximoMemoria.value;
+
     
         
-        if (minimoCpuVar == "" || minimoDiscoVar == "" || minimoRedeVar == "" || maximoCpuVar == "" || maximoDiscoVar == "" || maximoRedeVar == "") {
+        if (minimoCpuVar == "" || minimoMemoriaVar == "" || maximoCpuVar == "" || maximoMemoriaVar == "") {
         
             swal("Erro!", "Preencha todos os campos", "error");
             alert("ERRO AQUI 1.1")
@@ -125,25 +122,23 @@
                 },
                 body: JSON.stringify({
                     idEmpresaServer: idEmpresaVar,
-                    minimoCpuSever: minimoCpuVar,
-                    minimoDiscoServe: minimoDiscoVar,
-                    minimoRedeSever: minimoRedeVar,
+                    minimoCpuServer: minimoCpuVar,
+                    minimoMemoriaServer: minimoMemoriaVar,
                     maximoCpuServer: maximoCpuVar,
-                    maximoDiscoServer: maximoDiscoVar,
-                    maximoRedeServer: maximoRedeVar
+                    maximoMemoriaServer: maximoMemoriaVar,
                 })
             }).then(function (resposta) {
 
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    swal("Atualização realizado com sucesso!", " Atualizado", "success");
+                    swal("Cadastro das metricas realizado com sucesso!", " Cadastrado", "success");
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json));
 
 
-                        sessionStorage.ID_EMPRESA = json.fkEmpresa;
+                        // sessionStorage.ID_EMPRESA = json.fkEmpresa;
 
 
                         setTimeout(function () {
@@ -166,4 +161,75 @@
         }
         
     }
+
+    function updateForm() {
+
+        const idEmpresaVar = sessionStorage.getItem("ID_EMPRESA");
+        var minimoCpuVar = minimoCpu.value;
+        var minimoMemoriaVar = minimoMemoria.value;
+        var maximoCpuVar = maximacpu.value;
+        var maximoMemoriaVar = maximoMemoria.value;
+
+    
+        
+        if (minimoCpuVar == "" || minimoMemoriaVar == "" || maximoCpuVar == "" || maximoMemoriaVar == "") {
+        
+            swal("Erro!", "Preencha todos os campos", "error");
+            alert("ERRO AQUI 1.1")
+
+            return false;
+        }
+        else {
+            fetch("/usuarios/updateForm", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idEmpresaServer: idEmpresaVar,
+                    minimoCpuServer: minimoCpuVar,
+                    minimoMemoriaServer: minimoMemoriaVar,
+                    maximoCpuServer: maximoCpuVar,
+                    maximoMemoriaServer: maximoMemoriaVar,
+                })
+            }).then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    swal("Atualização realizado com sucesso!", " Atualizado", "success");
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        //Não utilizar sessão nas telas que necessitam reload. Só na tela de cadastro.
+                        // sessionStorage.ID_USUARIO = json.idUsuario;
+                        // // console(json.idUsuario);
+                        // // console(json.fkEmpresa);
+                        // sessionStorage.ID_EMPRESA = json.fkEmpresa;
+                       
+
+
+                        setTimeout(function () {
+                            window.location = "telaMetricas.html";
+                        }, 2000); // apenas para exibir o loading
+                    });
+
+                } else {
+                    swal("Houve um erro ao tentar atualizar as métricas", "Erro", "error");
+                    throw ("Houve um erro ao tentar realizar as métricas!");
+                
+                }
+            }).catch(function (resposta) {
+               
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+
+            return false;
+        }
+        
+    }
+
+    
 </script>

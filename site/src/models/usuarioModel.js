@@ -78,19 +78,21 @@ function criar_maquina(nomeMarcaVar, nomeModeloVar, RAMVar, CPUVar, idUsuario, i
     return database.executar(instrucao);
 } 
 
-function atualizarMetricas(minimoCpuVar, minimoDiscoVar, minimoRedeVar, maximoCpuVar, maximoDiscoVar, maximoRedeVar, idEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_empresa():", minimoCpuVar, minimoDiscoVar, minimoRedeVar, maximoCpuVar, maximoDiscoVar, maximoRedeVar, idEmpresa);
+function atualizarMetricas(minimoCpuVar, minimoMemoriaVar, maximoCpuVar, maximoMemoriaVar, idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_empresa():", minimoCpuVar, minimoMemoriaVar, maximoCpuVar, maximoMemoriaVar, idEmpresa);
     
     var instrucao;
-
+     
     if (process.env.AMBIENTE_PROCESSO === 'producao') {
+       
         instrucao = `
-        INSERT INTO alerta (minCpu, maxCpu, minMemoria, maxMemoria, minRede, maxRede, fkEmpresa) VALUES ('${minimoCpuVar}','${minimoDiscoVar}','${minimoRedeVar}', '${maximoCpuVar}', '${maximoDiscoVar}', '${maximoRedeVar}', '${idEmpresa}');
+        INSERT INTO alerta (minCpu, maxCpu, minMemoria, maxMemoria, fkEmpresa) VALUES ('${minimoCpuVar}','${minimoMemoriaVar}','${maximoCpuVar}', '${maximoMemoriaVar}', '${idEmpresa}');
         SELECT * FROM empresa WHERE idEmpresa = SCOPE_IDENTITY();
+
         `;
     } else {
         instrucao = `
-        INSERT INTO alerta (minCpu, maxCpu, minMemoria, maxMemoria, minRede, maxRede, fkEmpresa) VALUES ('${minimoCpuVar}','${minimoDiscoVar}','${minimoRedeVar}', '${maximoCpuVar}', '${maximoDiscoVar}', '${maximoRedeVar}', '${idEmpresa}');
+        INSERT INTO alerta (minCpu, maxCpu, minMemoria, maxMemoria, fkEmpresa) VALUES ('${minimoCpuVar}','${minimoMemoriaVar}', '${maximoCpuVar}', '${maximoMemoriaVar}', '${idEmpresa}');
         `;
     }
 
@@ -98,11 +100,32 @@ function atualizarMetricas(minimoCpuVar, minimoDiscoVar, minimoRedeVar, maximoCp
     return database.executar(instrucao);
 } 
 
+function updateForm(minimoCpuVar, minimoMemoriaVar, maximoCpuVar, maximoMemoriaVar, idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_empresa():", minimoCpuVar, minimoMemoriaVar, maximoCpuVar, maximoMemoriaVar, idEmpresa);
+    
+    var instrucao;
+
+    if (process.env.AMBIENTE_PROCESSO === 'producao') {
+        instrucao = `
+        UPDATE alerta SET minCpu = '${minimoCpuVar}', maxCpu = '${maximoCpuVar}', minMemoria = '${minimoMemoriaVar},' maxMemoria = '${maximoMemoriaVar}' WHERE fkEmpresa = '${idEmpresa}';
+        SELECT * FROM empresa WHERE idEmpresa = SCOPE_IDENTITY();
+        `;
+    } else {
+        instrucao = `
+        UPDATE alerta SET minCpu = '${minimoCpuVar}', maxCpu = '${maximoCpuVar}', minMemoria = '${minimoMemoriaVar}', maxMemoria = '${maximoMemoriaVar}' WHERE fkEmpresa = '${idEmpresa}';
+        `;
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     cadastrar_empresa,
     cadastrar_usuario,
     criar_maquina,
     atualizarMetricas,
+    updateForm,
     listar
 };

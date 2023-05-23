@@ -29,8 +29,12 @@ router.post("/atualizarMetricas", function (req, res) {
     usuarioController.atualizarMetricas(req, res);
 });
 
+router.post("/updateForm", function (req, res) {
+    usuarioController.updateForm(req, res);
+});
+
 router.post("/autenticar", function (req, res) {
-    usuarioController.entrar(req, res);
+    usuarioController.entrar(req, res); 
 });
 
 module.exports = router;
