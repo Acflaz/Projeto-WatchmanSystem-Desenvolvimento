@@ -91,6 +91,49 @@ function excluir_maquina(nomeMarcaVar, IPVar, idEmpresa) {
     } else {
         instrucao = `
         DELETE FROM notebook WHERE marca = '${nomeMarcaVar}' AND ipNotebook = '${IPVar}' AND fkEmpresa = '${idEmpresa}';
+        
+        `;
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function atualizarMetricas(minimoCpuVar, minimoMemoriaVar, maximoCpuVar, maximoMemoriaVar, idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_empresa():", minimoCpuVar, minimoMemoriaVar, maximoCpuVar, maximoMemoriaVar, idEmpresa);
+    
+    var instrucao;
+     
+    if (process.env.AMBIENTE_PROCESSO === 'producao') {
+       
+        instrucao = `
+        INSERT INTO alerta (minCpu, maxCpu, minMemoria, maxMemoria, fkEmpresa) VALUES ('${minimoCpuVar}','${minimoMemoriaVar}','${maximoCpuVar}', '${maximoMemoriaVar}', '${idEmpresa}');
+        SELECT * FROM empresa WHERE idEmpresa = SCOPE_IDENTITY();
+
+        `;
+    } else {
+        instrucao = `
+        INSERT INTO alerta (minCpu, maxCpu, minMemoria, maxMemoria, fkEmpresa) VALUES ('${minimoCpuVar}','${minimoMemoriaVar}', '${maximoCpuVar}', '${maximoMemoriaVar}', '${idEmpresa}');
+        `;
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+} 
+
+function updateForm(minimoCpuVar, minimoMemoriaVar, maximoCpuVar, maximoMemoriaVar, idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_empresa():", minimoCpuVar, minimoMemoriaVar, maximoCpuVar, maximoMemoriaVar, idEmpresa);
+    
+    var instrucao;
+
+    if (process.env.AMBIENTE_PROCESSO === 'producao') {
+        instrucao = `
+        UPDATE alerta SET minCpu = '${minimoCpuVar}', maxCpu = '${maximoCpuVar}', minMemoria = '${minimoMemoriaVar},' maxMemoria = '${maximoMemoriaVar}' WHERE fkEmpresa = '${idEmpresa}';
+        SELECT * FROM empresa WHERE idEmpresa = SCOPE_IDENTITY();
+        `;
+    } else {
+        instrucao = `
+        UPDATE alerta SET minCpu = '${minimoCpuVar}', maxCpu = '${maximoCpuVar}', minMemoria = '${minimoMemoriaVar}', maxMemoria = '${maximoMemoriaVar}' WHERE fkEmpresa = '${idEmpresa}';
         `;
     }
 
@@ -104,5 +147,7 @@ module.exports = {
     cadastrar_usuario,
     criar_maquina,
     excluir_maquina,
+    atualizarMetricas,
+    updateForm,
     listar
 };

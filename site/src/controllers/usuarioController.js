@@ -207,12 +207,88 @@ function excluir_maquina(req, res) {
     }
 }
 
+function atualizarMetricas(req, res) {
+    var minimoCpuVar = req.body.minimoCpuServer;
+    var minimoMemoriaVar = req.body.minimoMemoriaServer;
+    var maximoCpuVar = req.body.maximoCpuServer;
+    var maximoMemoriaVar = req.body.maximoMemoriaServer;
+    var idEmpresa = req.body.idEmpresaServer;
+    
+
+           if (idEmpresa == undefined) {
+        res.status(400).send("O id está undefined!");
+    } else if (minimoCpuVar == undefined) {
+        res.status(400).send("A miníma da CPU está undefined!");
+    } else if (minimoMemoriaVar == undefined) {
+        res.status(400).send("O minímo da memória está undefined!"); 
+    } else if (maximoCpuVar == undefined) {
+        res.status(400).send("A máxima da CPU está undefined!");
+    } else if (maximoMemoriaVar == undefined){
+        res.status(400).send("O máximo da memória está undefined!");
+    } else{
+        usuarioModel.atualizarMetricas(minimoCpuVar, minimoMemoriaVar, maximoCpuVar, maximoMemoriaVar, idEmpresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar a atualização das métricas! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function updateForm(req, res) {
+    var minimoCpuVar = req.body.minimoCpuServer;
+    var minimoMemoriaVar = req.body.minimoMemoriaServer;
+    var maximoCpuVar = req.body.maximoCpuServer;
+    var maximoMemoriaVar = req.body.maximoMemoriaServer;
+    var idEmpresa = req.body.idEmpresaServer;
+    
+
+           if (idEmpresa == undefined) {
+        res.status(400).send("O id está undefined!");
+    }else if (minimoCpuVar == undefined) {
+        res.status(400).send("A miníma da CPU está undefined!");
+    } else if (minimoMemoriaVar == undefined) {
+        res.status(400).send("O minímo da memória está undefined!"); 
+    } else if (maximoCpuVar == undefined) {
+        res.status(400).send("A máxima da CPU está undefined!");
+    } else if (maximoMemoriaVar == undefined){
+        res.status(400).send("O máximo da memória está undefined!");
+    } else{
+        usuarioModel.updateForm(minimoCpuVar, minimoMemoriaVar, maximoCpuVar, maximoMemoriaVar, idEmpresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar a atualização das métricas! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     entrar,
     cadastrar_empresa,
     cadastrar_usuario,
     criar_maquina,
     excluir_maquina,
+    atualizarMetricas,
+    updateForm,
     listar,
     testar
 }
