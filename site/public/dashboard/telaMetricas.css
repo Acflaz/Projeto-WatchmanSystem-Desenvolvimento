@@ -292,10 +292,10 @@ li:hover {
     border-radius: 50px;
 }
 
-.button:hover {
+/* .button:hover {
     background-color: #838383;
     transition: 0.4s;
-}
+} */
 
 .button-criar button{
     border: none;
