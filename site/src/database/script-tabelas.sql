@@ -8,6 +8,15 @@ comandos para mysql - banco local - ambiente de desenvolvimento
 create database watchmanSystem;
 use watchmanSystem;
 
+DROP DATABASE watchmanSystem;
+
+SELECT * FROM usuario;
+SELECT * FROM empresa;
+SELECT * FROM notebook;
+SELECT * FROM alerta;
+SELECT * FROM dadosCapturados;
+select * from ranking order by qtdPontuacao desc limit 3;
+
 create table empresa(
 idEmpresa int primary key auto_increment,
 nomeFantasia varchar(45),
@@ -16,19 +25,12 @@ emailResponsavel varchar(35),
 telefone varchar(45)
 );
 
-SELECT * FROM empresa;
-SELECT * FROM empresa WHERE usuario AND senha;
-
 create table alerta(
 idAlerta int primary key auto_increment,
 minCpu decimal(10,2),
 maxCpu decimal(10,2),
-minDisco decimal(10,2),
-maxDisco decimal(10,2),
 minMemoria decimal(10,2),
 maxMemoria decimal(10,2),
-minRede decimal(10,2),
-maxRede decimal(10,2),
 fkEmpresa int,
 foreign key (fkEmpresa) references empresa (idEmpresa)
 );
@@ -44,17 +46,14 @@ fkEmpresa INT,
 FOREIGN KEY (fkEmpresa) references empresa (idEmpresa),
 primary key(idUsuario, fkEmpresa)
 );
--- garante que cada combinação de idUsuario e fkEmpresa seja única e, portanto, só é possível ter uma entrada para cada combinação na tabela usuario. --
-
-SELECT * FROM usuario;
 
 create table notebook(
 idNotebook int primary key auto_increment,
 marca varchar(45),
 modelo varchar(45),
 capacidadeRam varchar(45),
-tipoDisco varchar(45),
 velocidadeCpu varchar(45),
+ipNotebook varchar(45),
 fkUsuario int,
 foreign key (fkUsuario) references usuario (idUsuario),
 fkEmpresa int,
@@ -63,12 +62,8 @@ foreign key (fkEmpresa) references empresa (idEmpresa)
 
 create table dadosCapturados(
 idDadosCapturados int primary key auto_increment,
-qtdUsadaRam varchar(45),
-tempoAtvDisco varchar(45),
-tempoAtvCpu varchar(45),
-utilizacaoCpu varchar(45),
-qtdProcessoCpu varchar(45),
-qtdThreadsCpu varchar(45),
+porcentagemUsoMemoria int,
+porcentagemUsoProcessador int,
 dataHora datetime,
 fkNotebook int,
 foreign key (fkNotebook) references notebook (idNotebook),
@@ -77,6 +72,24 @@ foreign key (fkUsuario) references usuario (idUsuario),
 fkEmpresa int,
 foreign key (fkEmpresa) references empresa (idEmpresa)
 );
+
+create table ranking (
+idRanking int primary key auto_increment,
+qtdPontuacao int,
+fkUsuario int,
+foreign key (fkUsuario) references usuario (idUsuario)
+);
+
+INSERT INTO empresa (nomeFantasia, cnpj, emailResponsavel, telefone) VALUES
+("Itau", "123456789012345", "itau@gmaul.com", "996352456");
+
+INSERT INTO usuario (nome, email, senha, tipo, fkEmpresa) VALUES
+("Erick", "erick@gmail.com", "123", "supervisor", 1);
+
+INSERT INTO notebook (marca, modelo, capacidadeRam,velocidadeCpu) VALUES 
+("DELL2","Intel CORE i52","256GB2","1002");
+
+DELETE FROM notebook WHERE marca = "Positivo" AND ipNotebook = 1 AND fkEmpresa = 1;
 
 /* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
 
