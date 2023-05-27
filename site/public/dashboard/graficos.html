@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="graficos.css">
     <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="chart.js"></script>
     <title>Dashboard | Gráficos</title>
 </head>
 
@@ -59,26 +61,19 @@
         <section class="sectionTelas">
             <div class="primeiroGrupo">
                 <div class="containerTela1">
-                    <!-- <h1>Tela 1</h1>
-                <div class="contentProdutividade">
-                    <canvas id="computador1"></canvas>
-                    <p class="lblProdutividade">Produtividade</p>
-                </div> -->
+                    <canvas id="lineChart"></canvas>
                 </div>
                 <div class="containerTela2">
-                    <!-- <h1>Tela 2</h1>
-                <div class="contentProdutividade">
-                    <canvas id="computador2"></canvas>
-                    <p class="lblProdutividade">Produtividade</p>
-                </div> -->
+                    <canvas id="lineChart"></canvas>
                 </div>
                 <div class="containerTela3">
-                    <!-- <h1>Tela 3</h1>
-                <div class="contentProdutividade">
-                    <canvas id="computador3"></canvas>
-                    <p class="lblProdutividade">Produtividade</p>
-                </div> -->
+                    <canvas id="lineChart"></canvas>
                 </div>
+            </div>
+
+
+
+            <div class="segundoGrupo">
                 <div class="containerTela4">
                     <!-- <h1>Tela 4</h1>
                 <div class="contentProdutividade">
@@ -86,11 +81,6 @@
                     <p class="lblProdutividade">Produtividade</p>
                 </div> -->
                 </div>
-            </div>
-
-
-
-            <div class="segundoGrupo">
                 <div class="containerTela5">
                     <!-- <h1>Tela 5</h1>
                 <div class="contentProdutividade">
@@ -121,9 +111,6 @@
 </body>
 
 </html>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
     // Gráfico KPI
     const ctx = document.getElementById('kpi');
@@ -151,150 +138,123 @@
         }
     });
 
-    //Gráficos monitoração
-    const horas = [
-        "10:00",
-        "10:05",
-        "10:10",
-        "10:15",
-        "10:20",
-        "10:25",
-        "10:30",
-        "10:35",
-        "10:40",
-        "10:45",
-        "10:50",
-        "10:55",
-        "11:00",
-        "11:05",
-        "11:10"
-    ]
+    window.onload = obterDadosGrafico(1);
+    function aguardarCarregamento(){
+        setInterval(() => obterDadosGrafico(1), 2000)
+    }
 
-    const dataTela1 = {
-        labels: horas,
-        datasets: [{
-            label: "Indicador Produtividade Tela: 1",
-            backgroundColor: 'rgb(240, 217, 46)',
-            borderColor: 'rgb(240, 217, 46)',
-            data: [0, 20, 19, 21, 18, 22, 26, 25, 27, 29, 30, 28, 26, 22, 25, 24]
-        }]
-    };
-    const config_tela1 = {
-        type: 'line',
-        data: dataTela1,
-        options: {}
-    };
-    const tela1 = new Chart(
-        document.getElementById('computador1'), config_tela1
-    );
+    // API | começo
+    let proximaAtualizacao;
+    // verificar_autenticacao()
+    function obterDadosGrafico(idDadosCapturados) {
+        fetch(`/medidas/ultimas/${idDadosCapturados}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    plotarGrafico(resposta, idDadosCapturados);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
-    const dataTela2 = {
-        labels: horas,
-        datasets: [{
-            label: "Indicador Produtividade Tela: 2",
-            backgroundColor: 'rgb(36, 224, 96)',
-            borderColor: 'rgb(36, 224, 96)',
-            data: [0, 40, 41, 35, 39, 35, 41, 32, 30, 39, 37, 45, 49, 42, 33, 35]
-        }]
-    };
-    const config_tela2 = {
-        type: 'line',
-        data: dataTela2,
-        options: {}
-    };
-    const tela2 = new Chart(
-        document.getElementById('computador2'), config_tela2
-    );
+    //Esta função (plotarGrafico) usa os dados capturados na função anterior para criar o gráfico
+    function plotarGrafico(resposta, idDadosCapturados) {
+        console.log('iniciando plotagem do gráfico...');
 
-    const dataTela3 = {
-        labels: horas,
-        datasets: [{
-            label: "Indicador Produtividade Tela: 3 ",
-            backgroundColor: 'rgb(250, 77, 77)',
-            borderColor: 'rgb(250, 77, 77)',
-            data: [0, 70, 71, 75, 89, 85, 91, 82, 80, 79, 77, 75, 79, 82, 83, 85]
-        }]
-    };
-    const config_tela3 = {
-        type: 'line',
-        data: dataTela3,
-        options: {}
-    };
-    const tela3 = new Chart(
-        document.getElementById('computador3'), config_tela3
-    );
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
 
-    const dataTela4 = {
-        labels: horas,
-        datasets: [{
-            label: "Indicador Produtividade Tela: 4",
-            backgroundColor: 'rgb(36, 224, 96)',
-            borderColor: 'rgb(36, 224, 96)',
-            data: [0, 40, 41, 35, 39, 35, 41, 32, 30, 39, 37, 45, 49, 42, 33, 35]
-        }]
-    };
-    const config_tela4 = {
-        type: 'line',
-        data: dataTela4,
-        options: {}
-    };
-    const tela4 = new Chart(
-        document.getElementById('computador4'), config_tela4
-    );
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Produtividade',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(0,0,255)',
+                tension: 0.1
+            }]
+        };
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
 
-    const dataTela5 = {
-        labels: horas,
-        datasets: [{
-            label: "Indicador Produtividade Tela: 5",
-            backgroundColor: 'rgb(36, 224, 96)',
-            borderColor: 'rgb(36, 224, 96)',
-            data: [0, 40, 41, 35, 39, 35, 41, 32, 30, 39, 37, 45, 49, 42, 33, 35]
-        }]
-    };
-    const config_tela5 = {
-        type: 'line',
-        data: dataTela5,
-        options: {}
-    };
-    const tela5 = new Chart(
-        document.getElementById('computador5'), config_tela5
-    );
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
 
-    const dataTela6 = {
-        labels: horas,
-        datasets: [{
-            label: "Indicador Produtividade Tela: 6",
-            backgroundColor: 'rgb(240, 217, 46)',
-            borderColor: 'rgb(240, 217, 46)',
-            data: [0, 70, 71, 75, 89, 85, 91, 82, 80, 79, 77, 75, 79, 82, 83, 85]
-        }]
-    };
-    const config_tela6 = {
-        type: 'line',
-        data: dataTela6,
-        options: {}
-    };
-    const tela6 = new Chart(
-        document.getElementById('computador6'), config_tela6
-    );
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.temperatura);
+        }
 
-    const dataTela7 = {
-        labels: horas,
-        datasets: [{
-            label: "Indicador Produtividade Tela: 7",
-            backgroundColor: 'rgb(250, 77, 77)',
-            borderColor: 'rgb(250, 77, 77)',
-            data: [0, 70, 71, 75, 89, 85, 91, 82, 80, 79, 77, 75, 79, 82, 83, 85]
-        }]
-    };
-    const config_tela7 = {
-        type: 'line',
-        data: dataTela7,
-        options: {}
-    };
-    const tela7 = new Chart(
-        document.getElementById('computador7'), config_tela7
-    );
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
 
+        // Criando estrutura para plotar gráfico - config
+
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        let myChart = new Chart(
+            document.getElementById('lineChart'),
+            config
+        );
+
+        setTimeout(() => atualizarGrafico(idDadosCapturados, dados, myChart), 2000);
+    }
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página
+    function atualizarGrafico(idDadosCapturados, dados, myChart) {
+        fetch(`/medidas/tempo-real/${idDadosCapturados}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        // document.getElementById("avisoCaptura").innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].momento_grafico)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+                        dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
+                        dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+                        myChart.update();
+                    }
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idDadosCapturados, dados, myChart), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idDadosCapturados, dados, myChart), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
 </script>
