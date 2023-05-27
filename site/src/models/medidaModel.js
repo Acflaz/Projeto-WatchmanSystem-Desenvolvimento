@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idDados, limite_linhas) {
+function buscarUltimasMedidas(idNotebook, limite_linhas) {
 
     instrucaoSql = ''
 
@@ -11,12 +11,12 @@ function buscarUltimasMedidas(idDados, limite_linhas) {
                         momento,
                         FORMAT(momento, 'HH:mm:ss') as momento_grafico
                     from medida
-                    where fk_aquario = ${idDados}
+                    where fk_aquario = ${idNotebook}
                     order by id desc`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `SELECT porcentagemUsoMemoria, porcentagemUsoProcessador, dataHora, DATE_FORMAT
         (dataHora,'%H:%i:%s') as momento_grafico 
-        FROM dadosCapturados WHERE fkNotebook = ${idDados} 
+        FROM dadosCapturados WHERE fkNotebook = ${idNotebook} 
         order by idDadosCapturados desc limit ${limite_linhas};`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -27,7 +27,7 @@ function buscarUltimasMedidas(idDados, limite_linhas) {
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idDados) {
+function buscarMedidasEmTempoReal(idNotebook) {
 
     instrucaoSql = ''
 
@@ -37,13 +37,13 @@ function buscarMedidasEmTempoReal(idDados) {
         dht11_umidade as umidade,  
                         CONVERT(varchar, momento, 108) as momento_grafico, 
                         fk_aquario 
-                        from medida where fk_aquario = ${idDados} 
+                        from medida where fk_aquario = ${idNotebook} 
                     order by id desc`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = ` SELECT porcentagemUsoMemoria, porcentagemUsoProcessador, dataHora, DATE_FORMAT
         (dataHora,'%H:%i:%s') as momento_grafico 
-        FROM dadosCapturados WHERE fkNotebook = ${idDados} 
+        FROM dadosCapturados WHERE fkNotebook = ${idNotebook} 
         order by idDadosCapturados desc limit 1;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");

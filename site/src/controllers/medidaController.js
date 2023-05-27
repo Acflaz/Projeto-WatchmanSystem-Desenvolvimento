@@ -4,11 +4,11 @@ function buscarUltimasMedidas(req, res) {
 
     const limite_linhas = 7;
 
-    var idDados = req.params.idDadosCapturados;
+    var idNotebook = req.params.idNotebook;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    medidaModel.buscarUltimasMedidas(idDados, limite_linhas).then(function (resultado) {
+    medidaModel.buscarUltimasMedidas(idNotebook, limite_linhas).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -24,11 +24,11 @@ function buscarUltimasMedidas(req, res) {
 
 function buscarMedidasEmTempoReal(req, res) {
 
-    var idDados = req.params.idDadosCapturados;
+    var idNotebook = req.params.idNotebook;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.buscarMedidasEmTempoReal(idDados).then(function (resultado) {
+    medidaModel.buscarMedidasEmTempoReal(idNotebook).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

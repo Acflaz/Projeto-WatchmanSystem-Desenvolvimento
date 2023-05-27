@@ -61,13 +61,13 @@
         <section class="sectionTelas">
             <div class="primeiroGrupo">
                 <div class="containerTela1">
-                    <canvas id="lineChart"></canvas>
+                    <canvas id="lineChart1"></canvas>
                 </div>
                 <div class="containerTela2">
-                    <canvas id="lineChart"></canvas>
+                    <canvas id="lineChart2"></canvas>
                 </div>
                 <div class="containerTela3">
-                    <canvas id="lineChart"></canvas>
+                    <canvas id="lineChart3"></canvas>
                 </div>
             </div>
 
@@ -146,13 +146,13 @@
     // API | começo
     let proximaAtualizacao;
     // verificar_autenticacao()
-    function obterDadosGrafico(idDadosCapturados) {
-        fetch(`/medidas/ultimas/${idDadosCapturados}`, { cache: 'no-store' }).then(function (response) {
+    function obterDadosGrafico(idNotebook) {
+        fetch(`/medidas/ultimas/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    plotarGrafico(resposta, idDadosCapturados);
+                    plotarGrafico(resposta, idNotebook);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -164,7 +164,7 @@
     }
 
     //Esta função (plotarGrafico) usa os dados capturados na função anterior para criar o gráfico
-    function plotarGrafico(resposta, idDadosCapturados) {
+    function plotarGrafico(resposta, idNotebook) {
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
@@ -176,7 +176,7 @@
             datasets: [{
                 label: 'Produtividade',
                 data: [],
-                fill: false,
+                fill: 'start',
                 borderColor: 'rgb(0,0,255)',
                 tension: 0.1
             }]
@@ -190,7 +190,8 @@
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.temperatura);
+            var produtividadeAtual = (registro.porcentagemUsoMemoria + registro.porcentagemUsoProcessador)/2;
+            dados.datasets[0].data.push(produtividadeAtual);
         }
 
         console.log('----------------------------------------------')
@@ -208,17 +209,21 @@
             data: dados,
         };
 
-        let myChart = new Chart(
-            document.getElementById('lineChart'),
+        let myChart1 = new Chart(
+            document.getElementById('lineChart1'),
+            config
+        );
+        let myChart2 = new Chart(
+            document.getElementById('lineChart2'),
             config
         );
 
-        setTimeout(() => atualizarGrafico(idDadosCapturados, dados, myChart), 2000);
+        setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2), 2000);
     }
 
     // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página
-    function atualizarGrafico(idDadosCapturados, dados, myChart) {
-        fetch(`/medidas/tempo-real/${idDadosCapturados}`, { cache: 'no-store' }).then(function (response) {
+    function atualizarGrafico(idNotebook, dados, myChart1, myChart2) {
+        fetch(`/medidas/tempo-real/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
@@ -236,20 +241,22 @@
                         console.log(dados.labels[dados.labels.length - 1])
                         console.log("---------------------------------------------------------------")
                     } else {
+                        var produtividadeAtual = (registro.percentagemUsoMemoria + registro.porcentagemUsoProcessador)/2;
                         // tirando e colocando valores no gráfico
                         dados.labels.shift(); // apagar o primeiro
                         dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
                         dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
-                        dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-                        myChart.update();
+                        dados.datasets[0].data.push(novoRegistro[0].produtividadeAtual); // incluir uma nova medida de temperatura
+                        myChart1.update();
+                        myChart2.update();
                     }
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idDadosCapturados, dados, myChart), 2000);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idDadosCapturados, dados, myChart), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2), 2000);
             }
         })
             .catch(function (error) {
