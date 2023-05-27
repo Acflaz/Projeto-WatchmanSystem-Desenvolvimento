@@ -12,7 +12,7 @@
   <title>Dashboard | Home</title>
 </head>
 
-<body>
+<body onload="obterdados(), atualizacaoPeriodica()">
   <section class="navbar">
     <div class="logo">
       <img src="assets/logo.png" alt="">
@@ -51,7 +51,7 @@
             <p>% de utilização</p>
           </div>
           <div class="contentVerticalParametro">
-            <p>12<span>%</span></p>
+            <p id="dadosCpu"><span>%</span></p>
           </div>
         </div>
         <div class="containerGrafico">
@@ -70,7 +70,7 @@
               <p>% de utilização</p>
             </div>
             <div class="contentVerticalParametro">
-              <p>50<span>%</span></p>
+              <p id="dadosMemoria"><span>%</span></p>
             </div>
           </div>
         </div>
@@ -79,28 +79,28 @@
 
     <section class="sectionTelas" onclick="entrarGrafico()">
       <div class="primeiroGrupo">
-        <div class="containerTela" style=" border-bottom: red 5px solid;">
+        <div onclick="tela1()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c1">
           <p class="date">Dezembro 20, 2021</p>
           <div class="contentVerticalTelas">
             <h1>Máquina 1</h1>
           </div>
           <p class="hours">09:25</p>
         </div>
-        <div class="containerTela" style=" border-bottom: red 5px solid;">
+        <div onclick="tela2()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c2">
           <p class="date">Dezembro 20, 2021</p>
           <div class="contentVerticalTelas">
             <h1>Máquina 2</h1>
           </div>
           <p class="hours">09:25</p>
         </div>
-        <div class="containerTela" style=" border-bottom: red 5px solid;">
+        <div onclick="tela3()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c3">
           <p class="date">Dezembro 20, 2021</p>
           <div class="contentVerticalTelas">
             <h1>Máquina 3</h1>
           </div>
           <p class="hours">09:25</p>
         </div>
-        <div class="containerTela" style=" border-bottom: red 5px solid;">
+        <div onclick="tela4()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c4">
           <p class="date">Dezembro 20, 2021</p>
           <div class="contentVerticalTelas">
             <h1>Máquina 4</h1>
@@ -111,7 +111,7 @@
 
 
 
-      <div class="segundoGrupo">
+      <!-- <div class="segundoGrupo">
         <div class="containerTela" style=" border-bottom: yellow 5px solid;">
           <p class="date">Dezembro 20, 2021</p>
           <div class="contentVerticalTelas">
@@ -170,8 +170,7 @@
             <h1>Máquina 12</h1>
           </div>
           <p class="hours">09:25</p>
-        </div>
-      </div>
+        </div> -->
     </section>
   </main>
 </body>
@@ -203,7 +202,73 @@
   });
 
 
-  function semPermissao() {
-    alert("Você não possui permissão para cadastrar usuários")
-  }
+  // function semPermissao() {
+  //   alert("Você não possui permissão para cadastrar usuários")
+  // }
+
+  // function atualizacaoPeriodica() {
+  //   obterdados(1);
+  //   obterdados(2);
+  //   obterdados(3);
+  //   obterdados(4);
+
+  //   setInterval(() => {
+  //   }, 7000);
+  //   setTimeout(atualizacaoPeriodica, 8000);
+  // }
+
+  // function obterdados(idDadosCapturados) {
+  //   fetch(`/medidas/tempo-real/${idDadosCapturados}`)
+  //     .then(resposta => {
+  //       if (resposta.ok) {
+  //         resposta.json().then(resposta => {
+  //           console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+  //           var dados = {
+  //             temperatura: resposta[0].temperatura,
+  //           }
+  //           alertar(resposta[0].temperatura, idDadosCapturados);
+  //         });
+  //       } else {
+  //         console.error('Nenhum dado encontrado ou erro na API');
+  //       }
+  //     })
+  //     .catch(function (error) {
+  //       console.error(`Erro na obtenção dos dados do freezer p/ gráfico: ${error.message}`);
+  //     });
+  // }
+
+  // function alertar(temperatura, idDadosCapturados) {
+  //   var limites = {
+  //     alerta: 24,
+  //     normal: 60,
+  //     critico: 95,
+      
+  //   };
+
+  //   var classeDados = 'card';
+
+  //   if (temperatura >= limites.critico) {
+  //     classeDados = 'card critico';
+  //     console.log("caiu no 1")
+  //   } else if (temperatura < limites.alerta) {
+  //     classeDados = 'card alerta';
+  //     console.log("caiu no 2")
+  //   } else if (temperatura < limites.normal) {
+  //     classeDados = 'card ideal';
+  //     console.log("caiu no 3")
+  //   } 
+
+  //   var card;
+
+  //   if (idDadosCapturados == 1) {
+  //     dadosCpu.innerHTML = temperatura;
+  //     card = card_1
+  //   } else if (idDadosCapturados == 2) {
+  //     dadosMemoria.innerHTML = temperatura;
+  //     card = card_2
+  //   }
+
+  //   // alterando
+  //   card.className = classeDados;
+  // }
 </script>
