@@ -14,7 +14,7 @@
     <title>Dashboard | Gráficos</title>
 </head>
 
-<body>
+<body onload="obterDadosGrafico(), aguardarCarregamento()">
     <main>
         <section class="navbar">
             <div class="logo">
@@ -61,7 +61,7 @@
         <section class="sectionTelas">
             <div class="primeiroGrupo">
                 <div class="containerTela1">
-                    <canvas id="lineChart1"></canvas>
+                    <canvas id="lineChart1" onload="obterDadosGrafico(1)"></canvas>
                 </div>
                 <div class="containerTela2">
                     <canvas id="lineChart2"></canvas>
@@ -75,25 +75,13 @@
 
             <div class="segundoGrupo">
                 <div class="containerTela4">
-                    <!-- <h1>Tela 4</h1>
-                <div class="contentProdutividade">
-                    <canvas id="computador4"></canvas>
-                    <p class="lblProdutividade">Produtividade</p>
-                </div> -->
+                    <canvas id="lineChart4"></canvas>
                 </div>
                 <div class="containerTela5">
-                    <!-- <h1>Tela 5</h1>
-                <div class="contentProdutividade">
-                    <canvas id="computador5"></canvas>
-                    <p class="lblProdutividade">Produtividade</p>
-                </div> -->
+                    <canvas id="lineChart5"></canvas>
                 </div>
                 <div class="containerTela6">
-                    <!-- <h1>Tela 6</h1>
-                <div class="contentProdutividade">
-                    <canvas id="computador6"></canvas>
-                    <p class="lblProdutividade">Produtividade</p>
-                </div> -->
+                    <canvas id="lineChart6"></canvas>
                 </div>
                 <!-- <div class="containerTela7">
                 <h1>Tela 7</h1>
@@ -138,21 +126,38 @@
         }
     });
 
-    window.onload = obterDadosGrafico(1);
-    function aguardarCarregamento(){
-        setInterval(() => obterDadosGrafico(1), 2000)
+
+    window.onload = function () {
+        obterDadosGrafico(1,1);
+        obterDadosGrafico(2,2);
+        obterDadosGrafico(3,3);
+        obterDadosGrafico(4,4);
+        obterDadosGrafico(5,5);
+        obterDadosGrafico(6,6);
+    };
+
+    function aguardarCarregamento() {
+        setInterval(function () {
+        obterDadosGrafico(1,1);
+        obterDadosGrafico(2,2);
+        obterDadosGrafico(3,3);
+        obterDadosGrafico(4,4);
+        obterDadosGrafico(5,5);
+        obterDadosGrafico(6,6);
+        }, 2000);
+        setTimeout(aguardarCarregamento, 8000)
     }
 
     // API | começo
     let proximaAtualizacao;
     // verificar_autenticacao()
-    function obterDadosGrafico(idNotebook) {
+    function obterDadosGrafico(idNotebook, idGrafico) {
         fetch(`/medidas/ultimas/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    plotarGrafico(resposta, idNotebook);
+                    plotarGrafico(resposta, idNotebook, idGrafico);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -164,7 +169,7 @@
     }
 
     //Esta função (plotarGrafico) usa os dados capturados na função anterior para criar o gráfico
-    function plotarGrafico(resposta, idNotebook) {
+    function plotarGrafico(resposta, idNotebook, idGrafico) {
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
@@ -186,13 +191,13 @@
         console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels.push(registro.momento_grafico);
-            var produtividadeAtual = (registro.porcentagemUsoMemoria + registro.porcentagemUsoProcessador)/2;
+            var produtividadeAtual = (registro.porcentagemUsoMemoria + registro.porcentagemUsoProcessador) / 2;
             dados.datasets[0].data.push(produtividadeAtual);
         }
+
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
@@ -209,20 +214,53 @@
             data: dados,
         };
 
-        let myChart1 = new Chart(
-            document.getElementById('lineChart1'),
-            config
-        );
-        let myChart2 = new Chart(
-            document.getElementById('lineChart2'),
-            config
-        );
+        if (idGrafico === 1) {
+            let myChart1 = new Chart(
+                document.getElementById('lineChart1'),
+                config
+            );
+        }
 
-        setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2), 2000);
+        if (idGrafico === 2) {
+            let myChart2 = new Chart(
+                document.getElementById('lineChart2'),
+                config
+            );
+        }
+
+        if (idGrafico === 3) {
+            let myChart3 = new Chart(
+                document.getElementById('lineChart3'),
+                config
+            );
+        }
+
+        if (idGrafico === 4) {
+            let myChart4 = new Chart(
+                document.getElementById('lineChart4'),
+                config
+            );
+        }
+
+        if (idGrafico === 5) {
+            let myChart5 = new Chart(
+                document.getElementById('lineChart5'),
+                config
+            );
+        }
+
+        if (idGrafico === 6) {
+            let myChart6 = new Chart(
+                document.getElementById('lineChart6'),
+                config
+            );
+        }
+
+        setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2, myChart3, myChart4, myChart5, myChart6, idGrafico), 2000);
     }
 
     // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página
-    function atualizarGrafico(idNotebook, dados, myChart1, myChart2) {
+    function atualizarGrafico(idNotebook, dados, myChart1, myChart2, myChart3, myChart4, myChart5, myChart6, idGrafico) {
         fetch(`/medidas/tempo-real/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
@@ -241,7 +279,7 @@
                         console.log(dados.labels[dados.labels.length - 1])
                         console.log("---------------------------------------------------------------")
                     } else {
-                        var produtividadeAtual = (registro.percentagemUsoMemoria + registro.porcentagemUsoProcessador)/2;
+                        var produtividadeAtual = (registro.percentagemUsoMemoria + registro.porcentagemUsoProcessador) / 2;
                         // tirando e colocando valores no gráfico
                         dados.labels.shift(); // apagar o primeiro
                         dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
@@ -251,12 +289,12 @@
                         myChart2.update();
                     }
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2), 2000);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2, myChart3, myChart4, myChart5, myChart6, idGrafico), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2, myChart3, myChart4, myChart5, myChart6, idGrafico), 2000);
             }
         })
             .catch(function (error) {

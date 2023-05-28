@@ -248,6 +248,35 @@ li:hover {
     border: solid 2px #1B98E0;   
 }
 
+/*  */
+
+.form-inputResponsavelUsuario{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.form-inputResponsavelUsuario label{
+    color: #7d8288;
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.form-inputResponsavelUsuario input{
+    outline: none;
+    border: none;
+    padding: 12px 30px;
+    background-color: #101017;
+    border: solid 2px #313131;
+    border-radius: 4px;
+    color: white;
+}
+
+.form-inputResponsavelUsuario input:hover{
+    border: solid 2px #1B98E0;   
+}
+
 .containerButtons{
     display: flex;
     align-items: center;
