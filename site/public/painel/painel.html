@@ -175,7 +175,7 @@
 
                 if (rankingFiltrado) {
                   rankingFiltrado.map((item, index) => {
-                    console.log(item, "ITEEEEEEEEEEEEEEEEEM");
+                    console.log(item, "ITEM");
 
                     if (index <= 2) {
                       rankingContainer.innerHTML += `
@@ -252,7 +252,7 @@
 
             if (resposta.ok) {
               resposta.json().then((json) => {
-                console.log(json, "jsooooooooooooooooooooooooooooon");
+                console.log(json, "json");
                 console.log(JSON.stringify(json));
 
                 for (let i = 0; i < json.length; i++) {
@@ -292,6 +292,7 @@
 
                   console.log("userExist: ", userExist);
 
+                  // Regra de negócio para padronizar quando a pessoa ganha pontos
                   if (
                     (porcentagemUsoMemoria + porcentagemUsoProcessador) / 2 <=
                       65 &&
