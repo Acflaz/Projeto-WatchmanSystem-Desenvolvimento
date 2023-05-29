@@ -138,30 +138,4 @@
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
   }
-
-  function tela1(idNotebook) {
-    fetch(`/medidas/tela1/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
-      if (response.ok) {
-        response.json().then(function (resposta) {
-          if (json.length > 0) {
-          var ultimaMedida = json[0];
-          var porcentagemUsoMemoria = ultimaMedida.porcentagemUsoMemoria;
-          var porcentagemUsoProcessador = ultimaMedida.porcentagemUsoProcessador;
-          var dadosCpu = document.getElementById('dadosCpu');
-          var dadosMemoria = document.getElementById('dadosMemoria');
-
-          dadosCpu.innerHTML = ultimaMedida;
-          dadosMemoria.innerHTML = ultimaMedida;
-          }
-          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-          resposta.reverse();
-        });
-      } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-      }
-    })
-      .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-      });
-  }
 </script>

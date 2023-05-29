@@ -11,8 +11,4 @@ router.get("/tempo-real/:idNotebook", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 })
 
-router.get("/tela1/:idNotebook", function (req, res) {
-    medidaController.tela1(req, res);
-})
-
 module.exports = router;
