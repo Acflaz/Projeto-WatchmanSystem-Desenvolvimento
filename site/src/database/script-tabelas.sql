@@ -77,8 +77,16 @@ create table ranking (
 idRanking int primary key auto_increment,
 qtdPontuacao int,
 fkUsuario int,
-foreign key (fkUsuario) references usuario (idUsuario)
+foreign key (fkUsuario) references usuario (idUsuario),
+fkEmpresa int,
+foreign key (fkEmpresa) references empresa (idEmpresa)
 );
+
+ -- select da inovação
+SELECT U.nome, R.qtdPontuacao
+FROM ranking R
+JOIN usuario U ON R.fkUsuario = U.idUsuario
+ORDER BY R.qtdPontuacao desc;
 
 INSERT INTO empresa (nomeFantasia, cnpj, emailResponsavel, telefone) VALUES
 ("Itau", "123456789012345", "itau@gmaul.com", "996352456");
