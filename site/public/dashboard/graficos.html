@@ -61,7 +61,7 @@
         <section class="sectionTelas">
             <div class="primeiroGrupo">
                 <div class="containerTela1">
-                    <canvas id="lineChart1" onload="obterDadosGrafico(1)"></canvas>
+                    <canvas id="lineChart1"></canvas>
                 </div>
                 <div class="containerTela2">
                     <canvas id="lineChart2"></canvas>
@@ -101,49 +101,23 @@
 </html>
 <script>
     // Gráfico KPI
-    const ctx = document.getElementById('kpi');
-    new Chart(ctx, {
-        //type: 'polarArea',
-        type: 'pie',
-        data: {
-            datasets: [{
-                label: '# of Votes',
-                data: [3, 2, 1],
-                borderWidth: 1,
-                backgroundColor: [
-                    'rgb(36, 224, 96)',
-                    'rgb(240, 217, 46)',
-                    'rgb(250, 77, 77)'],
-            }],
-            labels: ['Produtivo(consumo: 30%-65%)', 'Inprodutivo(consumo: <30%)', 'Defeito máquina(consumo: >65%)']
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-
     window.onload = function () {
-        obterDadosGrafico(1,1);
-        obterDadosGrafico(2,2);
-        obterDadosGrafico(3,3);
-        obterDadosGrafico(4,4);
-        obterDadosGrafico(5,5);
-        obterDadosGrafico(6,6);
+        obterDadosGrafico(1, 1);
+        obterDadosGrafico(2, 2);
+        obterDadosGrafico(3, 3);
+        obterDadosGrafico(4, 4);
+        obterDadosGrafico(5, 5);
+        obterDadosGrafico(6, 6);
     };
 
     function aguardarCarregamento() {
         setInterval(function () {
-        obterDadosGrafico(1,1);
-        obterDadosGrafico(2,2);
-        obterDadosGrafico(3,3);
-        obterDadosGrafico(4,4);
-        obterDadosGrafico(5,5);
-        obterDadosGrafico(6,6);
+            obterDadosGrafico(1, 1);
+            obterDadosGrafico(2, 2);
+            obterDadosGrafico(3, 3);
+            obterDadosGrafico(4, 4);
+            obterDadosGrafico(5, 5);
+            obterDadosGrafico(6, 6);
         }, 2000);
         setTimeout(aguardarCarregamento, 8000)
     }
@@ -186,18 +160,30 @@
                 tension: 0.1
             }]
         };
+
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
+        let quantidadeAlerta = 0;
+        let quantidadeNormal = 0;
+        let quantidadeCritico = 0;
+
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels.push(registro.momento_grafico);
             var produtividadeAtual = (registro.porcentagemUsoMemoria + registro.porcentagemUsoProcessador) / 2;
             dados.datasets[0].data.push(produtividadeAtual);
-        }
 
+            if (produtividadeAtual >= 0 && produtividadeAtual <= 24) {
+                quantidadeAlerta++;
+            } else if (produtividadeAtual >= 25 && produtividadeAtual <= 60) {
+                quantidadeNormal++;
+            } else if (produtividadeAtual >= 61 && produtividadeAtual <= 95) {
+                quantidadeCritico++;
+            }
+        }
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
@@ -206,8 +192,6 @@
         console.log('Dados:')
         console.log(dados.datasets)
         console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
 
         const config = {
             type: 'line',
@@ -256,6 +240,31 @@
             );
         }
 
+        const ctx = document.getElementById('kpi');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    label: 'Quantidade',
+                    data: [quantidadeNormal, quantidadeAlerta, quantidadeCritico],
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgb(36, 224, 96)',
+                        'rgb(240, 217, 46)',
+                        'rgb(250, 77, 77)'
+                    ],
+                }],
+                labels: ['Produtivo', 'Alerta', 'Crítico']
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
         setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2, myChart3, myChart4, myChart5, myChart6, idGrafico), 2000);
     }
 
@@ -287,6 +296,10 @@
                         dados.datasets[0].data.push(novoRegistro[0].produtividadeAtual); // incluir uma nova medida de temperatura
                         myChart1.update();
                         myChart2.update();
+                        myChart3.update();
+                        myChart4.update();
+                        myChart5.update();
+                        myChart6.update();
                     }
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                     proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart1, myChart2, myChart3, myChart4, myChart5, myChart6, idGrafico), 2000);
