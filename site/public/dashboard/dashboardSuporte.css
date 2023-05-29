@@ -310,3 +310,20 @@ body::-webkit-scrollbar {
 .contentGrafico{
     width: 180px;
 }
+
+/* Bordas das telas */
+
+.critico{
+    outline: rgb(173, 22, 22) 3px solid;
+    box-shadow: inset 4px 5px 20px 10px rgba(173, 22, 22, 0.25);
+}
+
+.ideal{
+    outline: rgb(38, 116, 38) 3px solid;
+    box-shadow: inset 4px 5px 20px 10px rgba(38, 116, 38, 0.25);
+}
+
+.alerta{
+    outline: rgb(255, 215, 18) 3px solid;
+    box-shadow: inset 4px 5px 20px 10px rgba(255, 215, 18, 0.25);
+}

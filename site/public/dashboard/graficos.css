@@ -167,15 +167,15 @@ nav img {
     height: 230px;
     margin: 20px;
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
 }
 
 .containerTela1, .containerTela2, .containerTela3, .containerTela4,
 .containerTela5, .containerTela6, .containerTela7, .containerTela8{
     background-color: #141E30;
     margin: 27px 15px;
-    width: 280px;
-    height: 210px;
+    width: 500px;
+    height: 220px;
     border-radius: 5px;
 }
 

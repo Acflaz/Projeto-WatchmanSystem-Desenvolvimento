@@ -12,7 +12,7 @@
   <title>Dashboard | Home</title>
 </head>
 
-<body>
+<body onload="obterDadosGrafico()">
   <section class="navbar">
     <div class="logo">
       <img src="assets/logo.png" alt="">
@@ -51,7 +51,7 @@
             <p>% de utilização</p>
           </div>
           <div class="contentVerticalParametro">
-            <p>12<span>%</span></p>
+            <p id="dadosCpu"><span>%</span></p>
           </div>
         </div>
         <div class="containerGrafico">
@@ -70,104 +70,40 @@
               <p>% de utilização</p>
             </div>
             <div class="contentVerticalParametro">
-              <p>50<span>%</span></p>
+              <p id="dadosMemoria"><span>%</span></p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="sectionTelas" onclick="entrarGrafico()">
+    <section class="sectionTelas">
       <div class="primeiroGrupo">
-        <div class="containerTela" style=" border-bottom: red 5px solid;">
+        <div onclick="tela1()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c1">
           <p class="date">Dezembro 20, 2021</p>
           <div class="contentVerticalTelas">
             <h1>Máquina 1</h1>
           </div>
           <p class="hours">09:25</p>
         </div>
-        <div class="containerTela" style=" border-bottom: red 5px solid;">
+        <div onclick="tela2()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c2">
           <p class="date">Dezembro 20, 2021</p>
           <div class="contentVerticalTelas">
             <h1>Máquina 2</h1>
           </div>
           <p class="hours">09:25</p>
         </div>
-        <div class="containerTela" style=" border-bottom: red 5px solid;">
+        <div onclick="tela3()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c3">
           <p class="date">Dezembro 20, 2021</p>
           <div class="contentVerticalTelas">
             <h1>Máquina 3</h1>
           </div>
           <p class="hours">09:25</p>
         </div>
-        <div class="containerTela" style=" border-bottom: red 5px solid;">
+        <div onclick="tela4()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c4">
           <p class="date">Dezembro 20, 2021</p>
           <div class="contentVerticalTelas">
             <h1>Máquina 4</h1>
-          </div>
-          <p class="hours">09:25</p>
-        </div>
-      </div>
-
-
-
-      <div class="segundoGrupo">
-        <div class="containerTela" style=" border-bottom: yellow 5px solid;">
-          <p class="date">Dezembro 20, 2021</p>
-          <div class="contentVerticalTelas">
-            <h1>Máquina 5</h1>
-          </div>
-          <p class="hours">09:25</p>
-        </div>
-        <div class="containerTela" style=" border-bottom: yellow 5px solid;">
-          <p class="date">Dezembro 20, 2021</p>
-          <div class="contentVerticalTelas">
-            <h1>Máquina 6</h1>
-          </div>
-          <p class="hours">09:25</p>
-        </div>
-        <div class="containerTela" style=" border-bottom: yellow 5px solid;">
-          <p class="date">Dezembro 20, 2021</p>
-          <div class="contentVerticalTelas">
-            <h1>Máquina 7</h1>
-          </div>
-          <p class="hours">09:25</p>
-        </div>
-        <div class="containerTela" style=" border-bottom: yellow 5px solid;">
-          <p class="date">Dezembro 20, 2021</p>
-          <div class="contentVerticalTelas">
-            <h1>Máquina 8</h1>
-          </div>
-          <p class="hours">09:25</p>
-        </div>
-      </div>
-
-      <div class="segundoGrupo">
-        <div class="containerTela" style=" border-bottom: green 5px solid;">
-          <p class="date">Dezembro 20, 2021</p>
-          <div class="contentVerticalTelas">
-            <h1>Máquina 9</h1>
-          </div>
-          <p class="hours">09:25</p>
-        </div>
-        <div class="containerTela" style=" border-bottom: green 5px solid;">
-          <p class="date">Dezembro 20, 2021</p>
-          <div class="contentVerticalTelas">
-            <h1>Máquina 10</h1>
-          </div>
-          <p class="hours">09:25</p>
-        </div>
-        <div class="containerTela" style=" border-bottom: green 5px solid;">
-          <p class="date">Dezembro 20, 2021</p>
-          <div class="contentVerticalTelas">
-            <h1>Máquina 11</h1>
-          </div>
-          <p class="hours">09:25</p>
-        </div>
-        <div class="containerTela" style=" border-bottom: green 5px solid;">
-          <p class="date">Dezembro 20, 2021</p>
-          <div class="contentVerticalTelas">
-            <h1>Máquina 12</h1>
           </div>
           <p class="hours">09:25</p>
         </div>
@@ -177,33 +113,29 @@
 </body>
 
 </html>
+
 <script>
   // Gráfico KPI
-  const ctx = document.getElementById('kpi');
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      datasets: [{
-        label: 'Quantidade',
-        data: [4, 4, 4],
-        borderWidth: 1,
-        backgroundColor: [
-          'rgb(36, 224, 96)',
-          'rgb(240, 217, 46)',
-          'rgb(250, 77, 77)'
-        ],
-      }],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false, // impede que o gráfico mantenha a proporção padrão
-      width: 100, // largura do gráfico em pixels
-      height: 100 // altura do gráfico em pixels
-    }
-  });
+  window.onload = function () {
+    obterDadosGrafico(1);
+    obterDadosGrafico(2);
+    obterDadosGrafico(3);
+    obterDadosGrafico(4);
+  };
 
-
-  function semPermissao() {
-    alert("Você não possui permissão para cadastrar usuários")
+  function obterDadosGrafico(idNotebook) {
+    fetch(`/medidas/tempo-real/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
   }
 </script>
