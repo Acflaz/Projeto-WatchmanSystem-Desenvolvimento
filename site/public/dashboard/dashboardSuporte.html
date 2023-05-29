@@ -12,7 +12,7 @@
   <title>Dashboard | Home</title>
 </head>
 
-<body onload="obterDadosGrafico(), aguardarCarregamento()">
+<body onload="obterDadosGrafico()">
   <section class="navbar">
     <div class="logo">
       <img src="assets/logo.png" alt="">
@@ -117,231 +117,51 @@
 <script>
   // Gráfico KPI
   window.onload = function () {
-        obterDadosGrafico(1, 1);
-        obterDadosGrafico(2, 2);
-        obterDadosGrafico(3, 3)
-        obterDadosGrafico(4, 4);
-    };
+    obterDadosGrafico(1);
+    obterDadosGrafico(2);
+    obterDadosGrafico(3);
+    obterDadosGrafico(4);
+  };
 
-    function aguardarCarregamento() {
-        setInterval(function () {
-            obterDadosGrafico(1, 1);
-            obterDadosGrafico(2, 2);
-            obterDadosGrafico(3, 3);
-            obterDadosGrafico(4, 4);
-        }, 2000);
-        setTimeout(aguardarCarregamento, 8000)
-    }
-
-    function obterDadosGrafico(idNotebook, idGrafico) {
-        fetch(`/medidas/ultimas/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-                    plotarGrafico(resposta, idNotebook, idGrafico);
-
-                    const porcentagemUsoMemoria = resposta[0].porcentagemUsoMemoria;
-                    const porcentagemUsoProcessador = resposta[0].porcentagemUsoProcessador;
-
-                    if (idGrafico === 1) {
-                        tela1(porcentagemUsoMemoria, porcentagemUsoProcessador);
-                    } else if (idGrafico === 2) {
-                        tela2(porcentagemUsoMemoria, porcentagemUsoProcessador);
-                    } else if (idGrafico === 3) {
-                        tela3(porcentagemUsoMemoria, porcentagemUsoProcessador);
-                    } else if (idGrafico === 4) {
-                        tela4(porcentagemUsoMemoria, porcentagemUsoProcessador);
-                    }
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-    }
-
-    function plotarGrafico(resposta, idNotebook, idGrafico) {
-        console.log('iniciando plotagem do gráfico...');
-
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
-            datasets: [{
-                label: 'Produtividade',
-                data: [],
-                fill: 'start',
-                borderColor: 'rgb(0,0,255)',
-                tension: 0.1
-            }]
-        };
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
-
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        let quantidadeAlerta = 0;
-        let quantidadeNormal = 0;
-        let quantidadeCritico = 0;
-
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            var produtividadeAtual = (registro.porcentagemUsoMemoria + registro.porcentagemUsoProcessador) / 2;
-            dados.datasets[0].data.push(produtividadeAtual);
-
-            if (produtividadeAtual >= 0 && produtividadeAtual <= 24) {
-                quantidadeAlerta++;
-            } else if (produtividadeAtual >= 25 && produtividadeAtual <= 60) {
-                quantidadeNormal++;
-            } else if (produtividadeAtual >= 61 && produtividadeAtual <= 95) {
-                quantidadeCritico++;
-            }
-        }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
-
-        const ctx = document.getElementById('kpi');
-        let myChart = new Chart({
-            type: 'pie',
-            data: {
-                datasets: [{
-                    label: 'Quantidade',
-                    data: [quantidadeNormal, quantidadeAlerta, quantidadeCritico],
-                    borderWidth: 1,
-                    backgroundColor: [
-                        'rgb(36, 224, 96)',
-                        'rgb(240, 217, 46)',
-                        'rgb(250, 77, 77)'
-                    ],
-                }],
-                labels: ['Produtivo', 'Alerta', 'Crítico']
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
+  function obterDadosGrafico(idNotebook) {
+    fetch(`/medidas/tempo-real/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
         });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
 
-        setTimeout(() => atualizarGrafico(idNotebook, dados, myChart, idGrafico), 2000);
-    }
+  function tela1(idNotebook) {
+    fetch(`/medidas/tela1/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          if (json.length > 0) {
+          var ultimaMedida = json[0];
+          var porcentagemUsoMemoria = ultimaMedida.porcentagemUsoMemoria;
+          var porcentagemUsoProcessador = ultimaMedida.porcentagemUsoProcessador;
+          var dadosCpu = document.getElementById('dadosCpu');
+          var dadosMemoria = document.getElementById('dadosMemoria');
 
-    function atualizarGrafico(idNotebook, dados, myChart, idGrafico) {
-        fetch(`/medidas/tempo-real/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
-
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        // document.getElementById("avisoCaptura").innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        var produtividadeAtual = (registro.percentagemUsoMemoria + registro.porcentagemUsoProcessador) / 2;
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-                        dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
-                        dados.datasets[0].data.push(novoRegistro[0].produtividadeAtual); // incluir uma nova medida de temperatura
-                        myChart.update();
-                    }
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart, idGrafico), 2000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart, idGrafico), 2000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-    }
-    
-    function tela1(porcentagemUsoMemoria, porcentagemUsoProcessador) {
-      const dadosCpu = document.getElementById('dadosCpu');
-      const dadosMemoria = document.getElementById('dadosMemoria');
-      dadosCpu.innerHTML = porcentagemUsoMemoria;
-      dadosMemoria.innerHTML = porcentagemUsoProcessador;
-    } 
-
-    function tela2(porcentagemUsoMemoria, porcentagemUsoProcessador) {
-      const dadosCpu = document.getElementById('dadosCpu');
-      const dadosMemoria = document.getElementById('dadosMemoria');
-      dadosCpu.innerHTML = `${porcentagemUsoMemoria}`;
-      dadosMemoria.innerHTML = `${porcentagemUsoProcessador}`;
-    } 
-
-    function tela3(porcentagemUsoMemoria, porcentagemUsoProcessador) {
-      const dadosCpu = document.getElementById('dadosCpu');
-      const dadosMemoria = document.getElementById('dadosMemoria');
-      dadosCpu.innerHTML = `${porcentagemUsoMemoria}`;
-      dadosMemoria.innerHTML = `${porcentagemUsoProcessador}`;
-    } 
-
-    function tela4(porcentagemUsoMemoria, porcentagemUsoProcessador) {
-      const dadosCpu = document.getElementById('dadosCpu');
-      const dadosMemoria = document.getElementById('dadosMemoria');
-      dadosCpu.innerHTML = `${porcentagemUsoMemoria}`;
-      dadosMemoria.innerHTML = `${porcentagemUsoProcessador}`;
-    } 
-
-  // function alertar(temperatura, idDadosCapturados) {
-  //   var limites = {x
-  //     alerta: 24,
-  //     normal: 60,
-  //     critico: 95,
-      
-  //   };
-
-  //   var classeDados = 'card';
-
-  //   if (temperatura >= limites.critico) {
-  //     classeDados = 'card critico';
-  //     console.log("caiu no 1")
-  //   } else if (temperatura < limites.alerta) {
-  //     classeDados = 'card alerta';
-  //     console.log("caiu no 2")
-  //   } else if (temperatura < limites.normal) {
-  //     classeDados = 'card ideal';
-  //     console.log("caiu no 3")
-  //   } 
-
-  //   var card;
-
-  //   if (idDadosCapturados == 1) {
-  //     dadosCpu.innerHTML = temperatura;
-  //     card = card_1
-  //   } else if (idDadosCapturados == 2) {
-  //     dadosMemoria.innerHTML = temperatura;
-  //     card = card_2
-  //   }
-
-  //   // alterando
-  //   card.className = classeDados;
-  // }
+          dadosCpu.innerHTML = ultimaMedida;
+          dadosMemoria.innerHTML = ultimaMedida;
+          }
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
 </script>
