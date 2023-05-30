@@ -206,7 +206,21 @@ main{
 
 .primeiroGrupo{
     height: 230px;
-    margin: 20px;
+    margin: 5px 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.segundoGrupo{
+    height: 230px;
+    margin: 5px 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.terceiroGrupo{
+    height: 230px;
+    margin: 5px 5px;
     display: flex;
     justify-content: space-between;
 }
@@ -260,12 +274,6 @@ main{
     margin: 5px 20px;
 }
 
-.segundoGrupo{
-    height: 230px;
-    margin: 20px;
-    display: flex;
-    justify-content: space-between;
-}
 
 body::-webkit-scrollbar {
     width: 12px;            
