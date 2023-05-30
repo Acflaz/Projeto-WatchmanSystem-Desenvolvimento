@@ -101,7 +101,7 @@
 </html>
 <script>
 
-    var graficoPizzaPlotado = false;
+    // var graficoPizzaPlotado = false;
 
     var idGraficos = {
         1: 'lineChart1',
@@ -140,6 +140,23 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+
+            //
+
+            fetch(`/medidas/ultimasMedidas`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    plotarGrafico(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
     //Esta função (plotarGrafico) usa os dados capturados na função anterior para criar o gráfico
@@ -169,7 +186,9 @@
         let quantidadeAlerta = 0;
         let quantidadeNormal = 0;
         let quantidadeCritico = 0;
+
         console.log(`Cheguei aqui`)
+
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels.push(registro.momento_grafico);
@@ -200,39 +219,11 @@
             type: 'line',
             data: dados,
         };
-        
-            let myChart = new Chart(
-                document.getElementById(idGraficos[idGrafico]),
-                config
-            );
- 
-        if (graficoPizzaPlotado == false) {
-            const ctx = document.getElementById('kpi');
-            new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    datasets: [{
-                        label: 'Quantidade',
-                        data: [quantidadeNormal, quantidadeAlerta, quantidadeCritico],
-                        borderWidth: 0,
-                        backgroundColor: [
-                            'rgb(36, 224, 96)',
-                            'rgb(240, 217, 46)',
-                            'rgb(250, 77, 77)'
-                        ],
-                    }],
-                    labels: ['Produtivo', 'Alerta', 'Crítico']
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-            graficoPizzaPlotado = true;
-        }
+
+        let myChart = new Chart(
+            document.getElementById(idGraficos[idGrafico]),
+            config
+        );
 
         setTimeout(() => atualizarGrafico(idNotebook, dados, myChart, idGrafico), 2000);
     }
@@ -282,4 +273,6 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
     }
+
+    /////////////////////////////////////////
 </script>
