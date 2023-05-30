@@ -51,7 +51,7 @@
             <p>% de utilização</p>
           </div>
           <div class="contentVerticalParametro">
-            <p id="dadosCpu"><span>%</span></p>
+            <p><span id="dadosCpu"></span>%</p>
           </div>
         </div>
         <div class="containerGrafico">
@@ -70,7 +70,7 @@
               <p>% de utilização</p>
             </div>
             <div class="contentVerticalParametro">
-              <p id="dadosMemoria"><span>%</span></p>
+              <p><span id="dadosMemoria"></span>%</p>
             </div>
           </div>
         </div>
@@ -79,33 +79,54 @@
 
     <section class="sectionTelas">
       <div class="primeiroGrupo">
-        <div onclick="tela1()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c1">
-          <p class="date">Dezembro 20, 2021</p>
+        <div onclick="tela(1)" class="containerTela" id="card c1">
+          <p class="date">Maio 31, 2023</p>
           <div class="contentVerticalTelas">
-            <h1>Máquina 1</h1>
+            <h1 id="user 1">Máquina 1</h1>
           </div>
-          <p class="hours">09:25</p>
+          <p class="hours" id="hours 1">09:25</p>
         </div>
-        <div onclick="tela2()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c2">
-          <p class="date">Dezembro 20, 2021</p>
+        <div onclick="tela(2)" class="containerTela" id="card c2">
+          <p class="date">Maio 31, 2023</p>
           <div class="contentVerticalTelas">
-            <h1>Máquina 2</h1>
+            <h1 id="user 2">Máquina 2</h1>
           </div>
-          <p class="hours">09:25</p>
+          <p class="hours" id="hours 2">09:25</p>
         </div>
-        <div onclick="tela3()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c3">
-          <p class="date">Dezembro 20, 2021</p>
+        <div onclick="tela(3)" class="containerTela" id="card c3">
+          <p class="date">Maio 31, 2023</p>
           <div class="contentVerticalTelas">
-            <h1>Máquina 3</h1>
+            <h1 id="user 3">Máquina 3</h1>
           </div>
-          <p class="hours">09:25</p>
+          <p class="hours" id="hours 3">09:25</p>
         </div>
-        <div onclick="tela4()" class="containerTela" style=" border-bottom: red 5px solid;" id="card c4">
-          <p class="date">Dezembro 20, 2021</p>
+        <div onclick="tela(4)" class="containerTela" id="card c4">
+          <p class="date">Maio 31, 2023</p>
           <div class="contentVerticalTelas">
-            <h1>Máquina 4</h1>
+            <h1 id="user 4">Máquina 4</h1>
           </div>
-          <p class="hours">09:25</p>
+          <p class="hours" id="hours 4">09:25</p>
+        </div>
+        <div onclick="tela(5)" class="containerTela" id="card c5">
+          <p class="date">Maio 31, 2023</p>
+          <div class="contentVerticalTelas">
+            <h1 id="user 5">Máquina 5</h1>
+          </div>
+          <p class="hours" id="hours 5">09:25</p>
+        </div>
+        <div onclick="tela(6)" class="containerTela" id="card c6">
+          <p class="date">Maio 31, 2023</p>
+          <div class="contentVerticalTelas">
+            <h1 id="user 6">Máquina 6</h1>
+          </div>
+          <p class="hours" id="hours 6">09:25</p>
+        </div>
+        <div onclick="tela(7)" class="containerTela" id="card c7">
+          <p class="date">Maio 31, 2023</p>
+          <div class="contentVerticalTelas">
+            <h1 id="user 7">Máquina 7</h1>
+          </div>
+          <p class="hours" id="hours 7">09:25</p>
         </div>
       </div>
     </section>
@@ -121,14 +142,71 @@
     obterDadosGrafico(2);
     obterDadosGrafico(3);
     obterDadosGrafico(4);
+    obterDadosGrafico(5);
+    obterDadosGrafico(6);
+    obterDadosGrafico(7);
   };
-
+  
   function obterDadosGrafico(idNotebook) {
+    fetch(`/medidas/ultimas/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos(obterDadosGrafico): ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+
+          var produtividadeAtual = (resposta[0].porcentagemUsoMemoria + resposta[0].porcentagemUsoProcessador) / 2; 
+          if (produtividadeAtual >= 0 && produtividadeAtual <= 24) {
+            var elemento = document.getElementById(`card c${idNotebook}`);
+            elemento.style = "border-bottom: yellow 5px solid";
+          }else if (produtividadeAtual >= 25 && produtividadeAtual <= 60) {
+            var elemento = document.getElementById(`card c${idNotebook}`);
+              elemento.style = "border-bottom: green 5px solid";  
+          }else{
+            var elemento = document.getElementById(`card c${idNotebook}`);
+            elemento.style = "border-bottom: red 5px solid";
+          }
+
+          var hora = document.getElementById(`hours ${idNotebook}`);
+          hora.innerHTML = resposta[0].momento_grafico
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+    
+    setTimeout(() => atualizarGrafico(idNotebook), 2000);
+
+    fetch(`/medidas/usuario/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos(usuario): ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+
+          var usuario = document.getElementById(`user ${idNotebook}`);
+          usuario.innerHTML = resposta[0].nome;
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção de usuário: ${error.message}`);
+      });
+  }
+  
+  var telaSelecionada;
+  function tela(idNotebook){
+    telaSelecionada = idNotebook;
     fetch(`/medidas/tempo-real/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
           console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
           resposta.reverse();
+          dadosCpu.innerHTML = `${resposta[0].porcentagemUsoProcessador}`;
+          dadosMemoria.innerHTML = `${resposta[0].porcentagemUsoMemoria}`;          
         });
       } else {
         console.error('Nenhum dado encontrado ou erro na API');
@@ -138,4 +216,57 @@
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
   }
+
+  function atualizarGrafico(idNotebook) {
+    fetch(`/medidas/tempo-real/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (novoRegistro) {
+        console.log(`Dados recebidos(atualizarGrafico): ${JSON.stringify(novoRegistro)}`);
+        console.log(`Dados atuais do gráfico:`);
+        console.log(novoRegistro[0].porcentagemUsoMemoria);
+        console.log(novoRegistro[0].porcentagemUsoProcessador);
+
+      if(idNotebook === telaSelecionada){
+        dadosCpu.innerHTML = novoRegistro[0].porcentagemUsoProcessador;
+        dadosMemoria.innerHTML = novoRegistro[0].porcentagemUsoMemoria;
+      }
+        
+      var produtividadeAtual = (novoRegistro[0].porcentagemUsoMemoria + novoRegistro[0].porcentagemUsoProcessador) / 2;  
+      if (produtividadeAtual >= 0 && produtividadeAtual <= 24) {
+        var elemento = document.getElementById(`card c${idNotebook}`);
+        elemento.style = "border-bottom: yellow 5px solid";
+      }else if (produtividadeAtual >= 25 && produtividadeAtual <= 60) {
+        var elemento = document.getElementById(`card c${idNotebook}`);
+        elemento.style = "border-bottom: green 5px solid";  
+      }else{
+        var elemento = document.getElementById(`card c${idNotebook}`);
+        elemento.style = "border-bottom: red 5px solid";
+      }
+
+      var hora = document.getElementById(`hours ${idNotebook}`);
+      hora.innerHTML = novoRegistro[0].momento_grafico;
+
+        if (novoRegistro[0].momento_grafico == novoRegistro[0].dataHora) {
+          console.log("---------------------------------------------------------------")
+          console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+          // Foi trazido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+          console.log("Horário do novo dado capturado:")
+          console.log(novoRegistro[0].momento_grafico)
+          console.log("Horário do último dado capturado:")
+          console.log(novoRegistro[0].dataHora);
+          console.log("---------------------------------------------------------------")
+        }
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook), 2000);
+          });
+      }else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook), 2000);
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+    }
 </script>

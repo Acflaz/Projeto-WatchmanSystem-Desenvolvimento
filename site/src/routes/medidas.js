@@ -11,4 +11,8 @@ router.get("/tempo-real/:idNotebook", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 })
 
+router.get("/usuario/:idNotebook", function (req, res) {
+    medidaController.buscarUsuarioResponsavel(req, res);
+})
+
 module.exports = router;
