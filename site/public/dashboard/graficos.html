@@ -114,24 +114,37 @@
 
     // Gráfico KPI
     window.onload = function () {
-        obterDadosGrafico(1, 1);
-        obterDadosGrafico(2, 2);
-        obterDadosGrafico(3, 3);
-        obterDadosGrafico(4, 4);
-        obterDadosGrafico(5, 5);
-        obterDadosGrafico(6, 6);
+        setInterval(obterGraficos, 2000);
     };
+
+    var qtdCritico = 0;
+    var qtdAlerta = 0;
+    var qtdNormal = 0;
+    var qtdTotal = [];
+    var chartTotal;
+    var chartsProdutividade = {};
 
     // API | começo
     let proximaAtualizacao;
     // verificar_autenticacao()
-    function obterDadosGrafico(idNotebook, idGrafico) {
+
+    function obterGraficos() {
+        obterGraficoProdutividade(1, 1);
+        obterGraficoProdutividade(2, 2);
+        obterGraficoProdutividade(3, 3);
+        obterGraficoProdutividade(4, 4);
+        obterGraficoProdutividade(5, 5);
+        obterGraficoProdutividade(6, 6);
+        obterGraficoTotal();
+    }
+
+    function obterGraficoProdutividade(idNotebook, idGrafico) {
         fetch(`/medidas/ultimas/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    plotarGrafico(resposta, idNotebook, idGrafico);
+                    plotarGraficoProdutividade(resposta, idNotebook, idGrafico);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -140,10 +153,12 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+
+        //
     }
 
     //Esta função (plotarGrafico) usa os dados capturados na função anterior para criar o gráfico
-    function plotarGrafico(resposta, idNotebook, idGrafico) {
+    function plotarGraficoProdutividade(resposta, idNotebook, idGrafico) {
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
@@ -163,29 +178,13 @@
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
+        console.log(resposta);
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        let quantidadeAlerta = 0;
-        let quantidadeNormal = 0;
-        let quantidadeCritico = 0;
-        console.log(`Cheguei aqui`)
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels.push(registro.momento_grafico);
             var produtividadeAtual = (registro.porcentagemUsoMemoria + registro.porcentagemUsoProcessador) / 2;
             dados.datasets[0].data.push(produtividadeAtual);
-
-            if (produtividadeAtual >= 0 && produtividadeAtual <= 24) {
-                quantidadeAlerta++;
-                console.log(quantidadeAlerta);
-            } else if (produtividadeAtual >= 25 && produtividadeAtual <= 60) {
-                quantidadeNormal++;
-                console.log(quantidadeNormal);
-            } else if (produtividadeAtual >= 61 && produtividadeAtual <= 95) {
-                quantidadeCritico++;
-                console.log(quantidadeCritico);
-            }
         }
 
         console.log('----------------------------------------------')
@@ -200,20 +199,57 @@
             type: 'line',
             data: dados,
         };
-        
-            let myChart = new Chart(
+        if (!arrayEquals(chartsProdutividade[idGrafico]?.data.datasets[0].data, config.data.datasets[0].data)) {
+            if (chartsProdutividade[idGrafico]) { chartsProdutividade[idGrafico].destroy(); }
+            chartsProdutividade[idGrafico] = new Chart(
                 document.getElementById(idGraficos[idGrafico]),
                 config
             );
- 
-        if (graficoPizzaPlotado == false) {
-            const ctx = document.getElementById('kpi');
-            new Chart(ctx, {
+            
+        }
+
+
+        // setTimeout(() => atualizarGrafico(idNotebook, dados, myChart, idGrafico), 2000);
+    } 
+
+    function arrayEquals(a, b) {
+        return Array.isArray(a) &&
+            Array.isArray(b) &&
+            a.length === b.length &&
+            a.every((val, index) => val === b[index]);
+    }
+
+    function obterGraficoTotal() {
+        fetch(`/medidas/qtdTotal`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos (qtdNormal): ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    qtdTotal = [resposta[0].quantidade_total, resposta[1].quantidade_total, resposta[2].quantidade_total];
+                }).then(function () {
+                    plotarGraficoPizza();
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function plotarGraficoPizza() {
+        const ctx = document.getElementById("kpi").getContext("2d");
+
+        if (!arrayEquals(chartTotal?.data.datasets[0].data, qtdTotal)) {
+            if (chartTotal) { chartTotal.destroy(); }
+            chartTotal = new Chart(ctx, {
                 type: 'pie',
                 data: {
                     datasets: [{
                         label: 'Quantidade',
-                        data: [quantidadeNormal, quantidadeAlerta, quantidadeCritico],
+                        data: qtdTotal,
                         borderWidth: 0,
                         backgroundColor: [
                             'rgb(36, 224, 96)',
@@ -231,15 +267,14 @@
                     }
                 }
             });
-            graficoPizzaPlotado = true;
         }
 
-        setTimeout(() => atualizarGrafico(idNotebook, dados, myChart, idGrafico), 2000);
     }
+
 
     // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página
     function atualizarGrafico(idNotebook, dados, myChart, idGrafico) {
-        fetch(`/medidas/tempo-real/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/ultimas/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
                     console.log(idGrafico);
@@ -275,11 +310,14 @@
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart, idGrafico), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook, dados, myChart, idGrafico, plota), 2000);
             }
         })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+        obterGraficos();
     }
+
+    /////////////////////////////////////////
 </script>
