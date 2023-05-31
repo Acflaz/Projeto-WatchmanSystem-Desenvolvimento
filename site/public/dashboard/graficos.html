@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style-geral-acesso.css">
+    <!-- <link rel="stylesheet" href="style-geral-acesso.css"> -->
     <link rel="stylesheet" href="graficos.css">
     <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="chart.js"></script>
+    <!-- <script src="chart.js"></script> -->
     <title>Dashboard | Gráficos</title>
 </head>
 
@@ -55,7 +55,7 @@
           <section class="sectionKPI">
             <div class="GroupKPI">
               <div class="containerKPI">
-                <h1> Indicadores de Produtividade: </h1>
+                <h1> Indicadores de Produtividade </h1>
                 <div class="informationAnalytics">
                     <div class="graficoKpi">
                         <canvas id="kpi"></canvas>
@@ -238,7 +238,7 @@
                 label: 'Produtividade',
                 data: [],
                 fill: 'start',
-                borderColor: 'rgb(0,0,255)',
+                borderColor: 'rgb(27, 152, 224)',
                 tension: 0.1
             }]
         };
@@ -320,15 +320,9 @@
                             'rgb(240, 217, 46)',
                             'rgb(250, 77, 77)'
                         ],
+                        hoverOffset: 4,
                     }],
                     labels: ['Produtivo', 'Alerta', 'Crítico']
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
                 }
             });
         }

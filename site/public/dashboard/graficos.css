@@ -9,11 +9,11 @@
 }
 
 body {
-    background-color: #101017;
+    background-color: #ffffff;
 }
 
 main{
-    background-color: #101017;
+    background-color: #ffffff;
     position: relative;
     width: calc(100% - 60px);
     min-height: 100vh;
@@ -38,11 +38,10 @@ main{
     bottom: 0;
     left: 0;
     height: 100vh;
-    background-color: #171821;
+    background-color: #ffffff;
     width: 60px;
     overflow: hidden;
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-    border-radius: 0 18px 18px 0;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.674);
 }
 
 nav {
@@ -81,7 +80,7 @@ nav img {
 /* Seção Perfil */
 
 .sectionPerfil {
-    background-color: #101017;
+    background-color: #ffffff;
     height: 10vh;
     display: flex;
     justify-content: flex-end;
@@ -100,8 +99,8 @@ nav img {
 }
 
 .contentImage {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-left: 1rem;
     background-image: url(../assets/supervisor.png);
@@ -111,8 +110,9 @@ nav img {
 }
 
 .contentName{
-    color: white;
+    color: #101017;
     margin-right: 2rem;
+    font-weight: 600;
 }
 
 /*  */
@@ -121,21 +121,24 @@ nav img {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background-color: #202b91;
+    background-color: #ffffff;
     margin-top: 5rem;
     width: 450px;
     height: 300px;
     margin-left: 2rem;
     align-items: center;
+    -webkit-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.489);
+    -moz-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.301);
+    box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.218);
 }
 
 .containerKPI h1{
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    color: #FFF;
+    color: #101017;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .graficoKpi{
@@ -157,25 +160,33 @@ nav img {
 
 .containerTela1, .containerTela2, .containerTela3, .containerTela4,
 .containerTela5, .containerTela6{
-    background-color: #141E30;
+    background-color: #fafafa;
     margin: 27px 15px;
     width: 500px;
     height: 220px;
     border-radius: 5px;
+    -webkit-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.489);
+    -moz-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.301);
+    box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.218);
+    border: solid 2px #ecebeb;
 }
 
 .containerTela7{
-    background-color: #141E30;
+    background-color: #ffffff;
     margin: 27px 15px;
     width: 450px;
     height: 220px;
     border-radius: 5px;
+    -webkit-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.489);
+    -moz-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.301);
+    box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.218);
+    border: solid 2px #ecebeb;
 }
 
 .containerTela1, .containerTela2, .containerTela3, .containerTela4,
 .containerTela5, .containerTela6, .containerTela7, .containerTela8 h1{
     padding: 20px;
-    color: white;
+    color: #101017;
     font-size: 10px;
     text-align: center;
 }
