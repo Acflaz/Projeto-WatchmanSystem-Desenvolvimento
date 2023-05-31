@@ -67,32 +67,37 @@
         <section class="sectionTelas">
             <div class="primeiroGrupo">
                 <div class="containerTela1">
+                    <h1 id="user 1">Máquina 1</h1>
                     <canvas id="lineChart1"></canvas>
                 </div>
                 <div class="containerTela2">
+                    <h1 id="user 2">Máquina 2</h1>
                     <canvas id="lineChart2"></canvas>
                 </div>
                 <div class="containerTela3">
+                    <h1 id="user 3">Máquina 3</h1>
                     <canvas id="lineChart3"></canvas>
                 </div>
             </div>
 
-
-
             <div class="segundoGrupo">
                 <div class="containerTela4">
+                    <h1 id="user 4">Máquina 4</h1>
                     <canvas id="lineChart4"></canvas>
                 </div>
                 <div class="containerTela5">
+                    <h1 id="user 5">Máquina 5</h1>
                     <canvas id="lineChart5"></canvas>
                 </div>
                 <div class="containerTela6">
+                    <h1 id="user 6">Máquina 6</h1>
                     <canvas id="lineChart6"></canvas>
                 </div>
             </div>
 
             <div class="terceiroGrupo">
                 <div class="containerTela7">
+                    <h1 id="user 7">Máquina 7</h1>
                     <canvas id="lineChart7"></canvas>
                 </div>
                 <!-- <div class="containerTela8" onclick="cadastrarMaquina()">
@@ -161,6 +166,22 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
 
+            fetch(`/medidas/usuario/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos(usuario): ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+
+          var usuario = document.getElementById(`user ${idNotebook}`);
+          usuario.innerHTML = resposta[0].nome;
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção de usuário: ${error.message}`);
+      });
         //
     }
 
@@ -229,7 +250,7 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos (qtdNormal): ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    qtdTotal = [resposta[2].quantidade_total, resposta[1].quantidade_total, resposta[0].quantidade_total];
+                    qtdTotal = [resposta[1].quantidade_total, resposta[2].quantidade_total, resposta[0].quantidade_total];
                 }).then(function () {
                     plotarGraficoPizza();
                 });

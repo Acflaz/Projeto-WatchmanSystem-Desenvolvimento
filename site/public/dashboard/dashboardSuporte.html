@@ -135,7 +135,7 @@
           <p class="hours" id="hours 7">09:25</p>
         </div>
       </div>
-    </div>
+      </div>
     </section>
   </main>
 </body>
@@ -153,7 +153,7 @@
     obterDadosGrafico(6);
     obterDadosGrafico(7);
   };
-  
+
   function obterDadosGrafico(idNotebook) {
     fetch(`/medidas/ultimas/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
@@ -161,20 +161,21 @@
           console.log(`Dados recebidos(obterDadosGrafico): ${JSON.stringify(resposta)}`);
           resposta.reverse();
 
-          var produtividadeAtual = (resposta[0].porcentagemUsoMemoria + resposta[0].porcentagemUsoProcessador) / 2; 
-          if (produtividadeAtual >= 0 && produtividadeAtual <= 24) {
+          // var produtividadeAtual = (resposta[0].porcentagemUsoMemoria + resposta[0].porcentagemUsoProcessador) / 2; 
+          if ((resposta.porcentagemUsoProcessador >= 0 && resposta.porcentagemUsoProcessador < 25) &&
+            (resposta.porcentagemUsoMemoria >= 0 && resposta.porcentagemUsoMemoria < 60)) {
             var elemento = document.getElementById(`card c${idNotebook}`);
             elemento.style = "border-bottom: yellow 5px solid";
-          }else if (produtividadeAtual >= 25 && produtividadeAtual <= 60) {
-            var elemento = document.getElementById(`card c${idNotebook}`);
-              elemento.style = "border-bottom: green 5px solid";  
-          }else{
+          } else if (resposta.porcentagemUsoProcessador > 61 && resposta.porcentagemUsoMemoria > 70) {
             var elemento = document.getElementById(`card c${idNotebook}`);
             elemento.style = "border-bottom: red 5px solid";
-          }
+          } else {
+            var elemento = document.getElementById(`card c${idNotebook}`);
+            elemento.sty
 
-          var hora = document.getElementById(`hours ${idNotebook}`);
-          hora.innerHTML = resposta[0].momento_grafico
+            var hora = document.getElementById(`hours ${idNotebook}`);
+            hora.innerHTML = resposta[0].momento_grafico
+          }
         });
       } else {
         console.error('Nenhum dado encontrado ou erro na API');
@@ -183,7 +184,7 @@
       .catch(function (error) {
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
-    
+
     setTimeout(() => atualizarGrafico(idNotebook), 2000);
 
     fetch(`/medidas/usuario/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
@@ -203,9 +204,9 @@
         console.error(`Erro na obtenção de usuário: ${error.message}`);
       });
   }
-  
+
   var telaSelecionada;
-  function tela(idNotebook){
+  function tela(idNotebook) {
     telaSelecionada = idNotebook;
     fetch(`/medidas/tempo-real/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
@@ -213,7 +214,7 @@
           console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
           resposta.reverse();
           dadosCpu.innerHTML = `${resposta[0].porcentagemUsoProcessador}`;
-          dadosMemoria.innerHTML = `${resposta[0].porcentagemUsoMemoria}`;          
+          dadosMemoria.innerHTML = `${resposta[0].porcentagemUsoMemoria}`;
         });
       } else {
         console.error('Nenhum dado encontrado ou erro na API');
@@ -228,52 +229,57 @@
     fetch(`/medidas/tempo-real/${idNotebook}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (novoRegistro) {
-        console.log(`Dados recebidos(atualizarGrafico): ${JSON.stringify(novoRegistro)}`);
-        console.log(`Dados atuais do gráfico:`);
-        console.log(novoRegistro[0].porcentagemUsoMemoria);
-        console.log(novoRegistro[0].porcentagemUsoProcessador);
+          console.log(`Dados recebidos(atualizarGrafico): ${JSON.stringify(novoRegistro)}`);
+          console.log(`Dados atuais do gráfico:`);
+          console.log(novoRegistro[0].porcentagemUsoMemoria);
+          console.log(novoRegistro[0].porcentagemUsoProcessador);
 
-      if(idNotebook === telaSelecionada){
-        dadosCpu.innerHTML = novoRegistro[0].porcentagemUsoProcessador;
-        dadosMemoria.innerHTML = novoRegistro[0].porcentagemUsoMemoria;
-      }
-        
-      var produtividadeAtual = (novoRegistro[0].porcentagemUsoMemoria + novoRegistro[0].porcentagemUsoProcessador) / 2;  
-      if (produtividadeAtual >= 0 && produtividadeAtual <= 24) {
-        var elemento = document.getElementById(`card c${idNotebook}`);
-        elemento.style = "border-bottom: yellow 5px solid";
-      }else if (produtividadeAtual >= 25 && produtividadeAtual <= 60) {
-        var elemento = document.getElementById(`card c${idNotebook}`);
-        elemento.style = "border-bottom: green 5px solid";  
-      }else{
-        var elemento = document.getElementById(`card c${idNotebook}`);
-        elemento.style = "border-bottom: red 5px solid";
-      }
+          var porcentagemProcessador = novoRegistro[0].porcentagemUsoProcessador;
+          var porcentagemMemoria = novoRegistro[0].porcentagemUsoMemoria;
 
-      var hora = document.getElementById(`hours ${idNotebook}`);
-      hora.innerHTML = novoRegistro[0].momento_grafico;
+          if (idNotebook === telaSelecionada) {
+            // dadosCpu.innerHTML = novoRegistro[0].porcentagemUsoProcessador;
+            // dadosMemoria.innerHTML = novoRegistro[0].porcentagemUsoMemoria;
+            dadosCpu.innerHTML = porcentagemProcessador;
+            dadosMemoria.innerHTML = porcentagemMemoria;
+          }
 
-        if (novoRegistro[0].momento_grafico == novoRegistro[0].dataHora) {
-          console.log("---------------------------------------------------------------")
-          console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-          // Foi trazido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-          console.log("Horário do novo dado capturado:")
-          console.log(novoRegistro[0].momento_grafico)
-          console.log("Horário do último dado capturado:")
-          console.log(novoRegistro[0].dataHora);
-          console.log("---------------------------------------------------------------")
-        }
-        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-        proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook), 2000);
-          });
-      }else {
+          // var produtividadeAtual = (novoRegistro[0].porcentagemUsoMemoria + novoRegistro[0].porcentagemUsoProcessador) / 2;  
+          if (porcentagemProcessador > 60 || porcentagemMemoria > 70) {
+            var elemento = document.getElementById(`card c${idNotebook}`);
+            elemento.style = "border-bottom: red 5px solid";
+          } else if (porcentagemProcessador >= 25 && porcentagemMemoria >= 60) {
+            var elemento = document.getElementById(`card c${idNotebook}`);
+            elemento.style = "border-bottom: green 5px solid";
+          } else {
+            var elemento = document.getElementById(`card c${idNotebook}`);
+            elemento.style = "border-bottom: yellow 5px solid";
+          }
+
+          var hora = document.getElementById(`hours ${idNotebook}`);
+          hora.innerHTML = novoRegistro[0].momento_grafico;
+
+          if (novoRegistro[0].momento_grafico == novoRegistro[0].dataHora) {
+            console.log("---------------------------------------------------------------")
+            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+            // Foi trazido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+            console.log("Horário do novo dado capturado:")
+            console.log(novoRegistro[0].momento_grafico)
+            console.log("Horário do último dado capturado:")
+            console.log(novoRegistro[0].dataHora);
+            console.log("---------------------------------------------------------------")
+          }
+          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+          proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook), 2000);
+        });
+      } else {
         console.error('Nenhum dado encontrado ou erro na API');
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idNotebook), 2000);
       }
     })
-    .catch(function (error) {
-      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-    }
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
 </script>
