@@ -70,7 +70,7 @@ function qtdTotal() {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `SELECT
-        quantidade_total
+        quantidade_total, classificacao
     FROM (
         SELECT
             classificacao,
@@ -79,9 +79,10 @@ function qtdTotal() {
             SELECT
                 dc.fkNotebook,
                 CASE
-                    WHEN (dc.porcentagemUsoMemoria + dc.porcentagemUsoProcessador) / 2 BETWEEN 0 AND 24 THEN 'Alerta'
-                    WHEN (dc.porcentagemUsoMemoria + dc.porcentagemUsoProcessador) / 2 BETWEEN 24.1 AND 60 THEN 'Normal'
-                    WHEN (dc.porcentagemUsoMemoria + dc.porcentagemUsoProcessador) / 2 BETWEEN 60.1 AND 99 THEN 'Crítico'
+					WHEN (dc.porcentagemUsoMemoria > 70 ) OR (dc.porcentagemUsoProcessador > 60) THEN 'Crítico'
+                    WHEN (dc.porcentagemUsoMemoria >= 60) AND (dc.porcentagemUsoProcessador >= 25) THEN 'Normal'
+                    ELSE 'Alerta'
+                    -- WHEN (dc.porcentagemUsoMemoria BETWEEN 0 AND 59.9) OR (dc.porcentagemUsoProcessador BETWEEN 0 AND 24.9) THEN 'Alerta'
                 END AS classificacao
             FROM dadosCapturados dc
             JOIN (
@@ -90,6 +91,7 @@ function qtdTotal() {
                 GROUP BY fkNotebook
             ) sub ON dc.fkNotebook = sub.fkNotebook AND dc.idDadosCapturados = sub.lastMeasure
         ) subquery
+        WHERE classificacao IS NOT NULL -- Adicione essa condição para filtrar classificações nulas (que não se enquadram nos casos definidos acima)
         GROUP BY classificacao
     ) result;`;
     } else {
