@@ -36,11 +36,9 @@ function buscarMedidasEmTempoReal(req, res) {
     });
 }
 
-function ultimasMedidas(req, res) {
-    // var idNotebook = req.params.idNotebook;
-
+function qtdTotal(req, res) {
     console.log(`Recuperando medidas em tempo real`);
-    medidaModel.ultimasMedidas().then(function (resultado) {
+    medidaModel.qtdTotal().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -56,5 +54,5 @@ function ultimasMedidas(req, res) {
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    ultimasMedidas
+    qtdTotal
 }

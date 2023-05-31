@@ -11,8 +11,8 @@ router.get("/tempo-real/:idNotebook", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 });
 
-router.get("/ultimas/ultimasMedidas/:idNotebook", function (req, res) {
-    medidaController.ultimasMedidas(req, res);
+router.get("/qtdTotal", function (req, res) {
+    medidaController.qtdTotal(req, res);
 });
 
 module.exports = router;

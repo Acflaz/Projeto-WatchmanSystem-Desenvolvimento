@@ -54,8 +54,10 @@ function buscarMedidasEmTempoReal(idNotebook) {
     return database.executar(instrucaoSql);
 }
 
-function ultimasMedidas(idNotebook) {
-    instrucaoSql = ''
+
+
+function qtdTotal() {
+    instrucaoSql = '';
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select top 1
@@ -67,7 +69,29 @@ function ultimasMedidas(idNotebook) {
                     order by id desc`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `SELECT COUNT(*) AS quantidade_notebooks FROM notebook;`;
+        instrucaoSql = `SELECT
+        quantidade_total
+    FROM (
+        SELECT
+            classificacao,
+            COUNT(*) AS quantidade_total
+        FROM (
+            SELECT
+                dc.fkNotebook,
+                CASE
+                    WHEN (dc.porcentagemUsoMemoria + dc.porcentagemUsoProcessador) / 2 BETWEEN 0 AND 24 THEN 'Alerta'
+                    WHEN (dc.porcentagemUsoMemoria + dc.porcentagemUsoProcessador) / 2 BETWEEN 24.1 AND 60 THEN 'Normal'
+                    WHEN (dc.porcentagemUsoMemoria + dc.porcentagemUsoProcessador) / 2 BETWEEN 60.1 AND 99 THEN 'Crítico'
+                END AS classificacao
+            FROM dadosCapturados dc
+            JOIN (
+                SELECT fkNotebook, MAX(idDadosCapturados) AS lastMeasure
+                FROM dadosCapturados
+                GROUP BY fkNotebook
+            ) sub ON dc.fkNotebook = sub.fkNotebook AND dc.idDadosCapturados = sub.lastMeasure
+        ) subquery
+        GROUP BY classificacao
+    ) result;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -80,5 +104,5 @@ function ultimasMedidas(idNotebook) {
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    ultimasMedidas
+    qtdTotal
 }
