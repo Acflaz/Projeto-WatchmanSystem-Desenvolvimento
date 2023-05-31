@@ -27,6 +27,9 @@
                 <li><a href="telaMetricas.html">
                         <img src="assets/configuracoes.png" alt="">
                     </a></li>
+                <li><a href="telaMaquina.html">
+                        <img src="assets/aba.png" alt="">
+                    </a></li>
             </nav>
             <div class="logout">
                 <li><a href="../login.html">
@@ -41,7 +44,7 @@
 
                 </div>
                 <div class="contentName">
-                    <p id="nameUser">Erick San.</p>
+                    <p id="nameUser">Supervisor</p>
                 </div>
             </div>
         </section>
@@ -83,16 +86,15 @@
                 <div class="containerTela6">
                     <canvas id="lineChart6"></canvas>
                 </div>
-                <!-- <div class="containerTela7">
-                <h1>Tela 7</h1>
-                <div class="contentProdutividade">
-                    <canvas id="computador7"></canvas>
-                    <p class="lblProdutividade">Produtividade</p>
+            </div>
+
+            <div class="terceiroGrupo">
+                <div class="containerTela7">
+                    <canvas id="lineChart7"></canvas>
                 </div>
-            </div> -->
-                <div class="containerTela8" onclick="cadastrarMaquina()">
+                <!-- <div class="containerTela8" onclick="cadastrarMaquina()">
                     <h1>+</h1>
-                </div>
+                </div> -->
             </div>
         </section>
     </main>
@@ -205,9 +207,9 @@
                 document.getElementById(idGraficos[idGrafico]),
                 config
             );
-            
+
         }
-    } 
+    }
 
     function arrayEquals(a, b) {
         return Array.isArray(a) &&

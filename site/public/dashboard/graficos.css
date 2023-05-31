@@ -157,7 +157,7 @@ nav img {
     left: 0;
     transform: translate(8%, 15%);
     background-color: #171821;
-    height: 520px;
+    height: 750px;
     width: 180vh;
     border-radius: 15px;
     cursor: pointer;
@@ -171,7 +171,7 @@ nav img {
 }
 
 .containerTela1, .containerTela2, .containerTela3, .containerTela4,
-.containerTela5, .containerTela6, .containerTela7, .containerTela8{
+.containerTela5, .containerTela6{
     background-color: #141E30;
     margin: 27px 15px;
     width: 500px;
@@ -181,8 +181,22 @@ nav img {
 
 .containerTela8{
     display: flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
+    background-color: #141E30;
+    margin: 27px 15px;
+    width: 380px;
+    height: 220px;
+    border-radius: 5px;
+}
+
+.containerTela7{
+    background-color: #141E30;
+    margin: 27px 15px;
+    width: 380px;
+    height: 220px;
+    border-radius: 5px;
 }
 
 .containerTela1, .containerTela2, .containerTela3, .containerTela4,
@@ -209,6 +223,13 @@ nav img {
 }
 
 .segundoGrupo{
+    height: 230px;
+    margin: 20px;
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.terceiroGrupo{
     height: 230px;
     margin: 20px;
     display: flex;
