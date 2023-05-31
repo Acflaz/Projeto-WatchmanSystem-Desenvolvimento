@@ -15,4 +15,8 @@ router.get("/qtdTotal", function (req, res) {
     medidaController.qtdTotal(req, res);
 });
 
+router.get("/usuario/:idNotebook", function (req, res) {
+    medidaController.buscarUsuarioResponsavel(req, res);
+})
+
 module.exports = router;
