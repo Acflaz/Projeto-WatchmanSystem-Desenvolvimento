@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: #101017;
+    background-color: #ffffff;
 }
 
 .logo {
@@ -30,11 +30,9 @@ body {
     bottom: 0;
     left: 0;
     height: 100vh;
-    background-color: #171821;
+    background-color: #ffffff;
     width: 60px;
     overflow: hidden;
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-    border-radius: 0 18px 18px 0;
 }
 
 nav {
@@ -73,7 +71,7 @@ nav img {
 /* Seção Perfil */
 
 .sectionPerfil {
-    background-color: #101017;
+    background-color: #ffffff;
     height: 10vh;
     display: flex;
     justify-content: flex-end;
@@ -92,8 +90,8 @@ nav img {
 }
 
 .contentImage {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-left: 1rem;
     background-image: url(../assets/SuporteRemoto.png);
@@ -103,14 +101,15 @@ nav img {
 }
 
 .contentName{
-    color: white;
+    color: #101017;
+    font-weight: 600;
     margin-right: 2rem;
 }
 
 /* Fim seção do perfil */
 
 main{
-    background-color: #101017;
+    background-color: #ffffff;
     position: relative;
     width: calc(100% - 60px);
     min-height: 100vh;
@@ -125,11 +124,15 @@ main{
     left: 0;
     transform: translate(8%, 50%);
     margin-top: 2rem;
-    background-color: #21222D;
+    background-color: #ffffff;
     height: 250px;
     width: 180vh;
-    border-radius: 15px;
+    border-radius: 5px;
+    border: solid 2px #ecebeb;
     cursor: default;
+    -webkit-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.489);
+    -moz-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.301);
+    box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.218);
 }
 
 .GroupKPI{
@@ -140,10 +143,13 @@ main{
 }
 
 .containerKPI{
-    background-color: #171821;
+    background-color: #ffffff;
     margin: 10px;
     width: 280px;
-    border-radius: 10px;
+    border-radius: 5px;
+    -webkit-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.489);
+    -moz-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.301);
+    box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.218);
 }
 
 .containerKPI img{
@@ -158,7 +164,7 @@ main{
 }
 
 .contentHorizontal h1{
-    color: white;
+    color: #101017;
     font-size: 30px;
     font-weight: 600;
     margin-top: 1rem;
@@ -170,7 +176,7 @@ main{
 }
 
 .contentVertical{
-    color: #AAE6D0;
+    color: #358be0;
     font-size: 12px;
     text-align: center;
 }
@@ -178,7 +184,7 @@ main{
 .contentVerticalParametro p{  
     text-align: center;
     font-size: 20px;
-    color: #FFF;
+    color: #101017;
 }
 
 .contentVerticalParametro p span{
@@ -196,12 +202,16 @@ main{
     top: 0;
     left: 0;
     transform: translate(8%, 85%);
-    background-color: #171821;
+    background-color: #ffffff;
     height: 520px;
     width: 180vh;
-    border-radius: 15px;
+    border-radius: 5px;
     cursor: pointer;
     overflow-y: scroll;
+    -webkit-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.489);
+    -moz-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.301);
+    box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.218);
+    border: solid 2px #ecebeb;
 }
 
 .primeiroGrupo{
@@ -226,15 +236,18 @@ main{
 }
 
 .containerTela{
-    background-color: #141E30;
+    background-color: #ffffff;
     margin: 10px;
     width: 280px;
     height: 160px;
-    border-radius: 25px;
+    border-radius: 5px;
+    -webkit-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.489);
+    -moz-box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.301);
+    box-shadow: 1px 3px 107px -25px rgba(0, 0, 0, 0.218);
 }
 
 .containerTela .date{
-    color: #D9D9D9;
+    color: #101017;
     font-size: 14px;
     margin: 15px 20px;
 }
@@ -246,14 +259,14 @@ main{
 }
 
 .contentVerticalTelas h1{
-    color: white;
+    color: #101017;
     margin-top: 1rem;
     font-size: 25px;
     margin-bottom: 2rem;
 }
 
 .contentVerticalTelas p{
-    color: #D9D9D9;
+    color: #101017;
     margin-top: 10px;
     font-size: 12px;
 }
@@ -264,12 +277,12 @@ main{
 
 .porcentagem{
     margin: 10px 210px;
-    color: white;
+    color: #101017;
     font-size: 14px;
 }
 
 .hours{
-    color: #D9D9D9;
+    color: #101017;
     font-size: 14px;
     margin: 5px 20px;
 }
