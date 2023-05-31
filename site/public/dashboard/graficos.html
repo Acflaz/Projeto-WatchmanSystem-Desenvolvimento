@@ -115,6 +115,7 @@
         4: 'lineChart4',
         5: 'lineChart5',
         6: 'lineChart6',
+        7: 'lineChart7'
     }
 
     // Gráfico KPI
@@ -140,6 +141,7 @@
         obterGraficoProdutividade(4, 4);
         obterGraficoProdutividade(5, 5);
         obterGraficoProdutividade(6, 6);
+        obterGraficoProdutividade(7, 7);
         obterGraficoTotal();
     }
 
@@ -227,7 +229,7 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos (qtdNormal): ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    qtdTotal = [resposta[0].quantidade_total, resposta[1].quantidade_total, resposta[2].quantidade_total];
+                    qtdTotal = [resposta[2].quantidade_total, resposta[1].quantidade_total, resposta[0].quantidade_total];
                 }).then(function () {
                     plotarGraficoPizza();
                 });
