@@ -175,15 +175,16 @@ main{
     text-align: center;
 }
 
-.contentVerticalParametro p{
+.contentVerticalParametro p{  
     text-align: center;
+    font-size: 20px;
+    color: #FFF;
+}
+
+.contentVerticalParametro p span{
     color: white;
     font-size: 90px;
     font-family: 'Space Grotesk', sans-serif;
-}
-
-.contentVerticalParametro span{
-    font-size: 20px;
 }
 
 /* Fim */
@@ -205,7 +206,21 @@ main{
 
 .primeiroGrupo{
     height: 230px;
-    margin: 20px;
+    margin: 5px 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.segundoGrupo{
+    height: 230px;
+    margin: 5px 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.terceiroGrupo{
+    height: 230px;
+    margin: 5px 5px;
     display: flex;
     justify-content: space-between;
 }
@@ -259,12 +274,6 @@ main{
     margin: 5px 20px;
 }
 
-.segundoGrupo{
-    height: 230px;
-    margin: 20px;
-    display: flex;
-    justify-content: space-between;
-}
 
 body::-webkit-scrollbar {
     width: 12px;            
