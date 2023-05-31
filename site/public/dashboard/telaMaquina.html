@@ -55,14 +55,18 @@
                     <div class="form-inputModelo">
                         <label for="modeloMaquina">Modelo</label>
                         <input type="text" id="modeloMaquina">
-                    </div>             
-                    <div class="form-inputInfoHardware">
-                        <label for="ipNotebook">IP do Notebook</label>
-                        <input type="text" id="ipNotebook">
                     </div>
+                    <div class="form-inputInfoHardware">
+                        <label for="capacidadeRAM">Capacidade de RAM</label>
+                        <input type="text" id="capacidadeRAM">
+                    </div>
+                    <div class="form-inputInfoHardware">
+                        <label for="velocidadeCPU">Velocidade do CPU</label>
+                        <input type="text" id="velocidadeCPU">
+                    </div>          
                     <div class="form-inputResponsavelUsuario">
-                        <label for="responsavelUsuario">Usuário Responsável</label>
-                        <input type="text" id="responsavelUsuario">
+                        <input type="text" id="responsavelUsuario" placeholder="Responsável">
+                        <input type="text" id="ipNotebook" placeholder="IP Notebook">
                     </div>
                 </div>
                 <section class="section-right">
@@ -88,10 +92,12 @@
         const idEmpresaVar = sessionStorage.getItem("ID_EMPRESA");
         var nomeMarcaVar = marcaMaquina.value;
         var nomeModeloVar = modeloMaquina.value;
+        var RAMVar = capacidadeRAM.value;
+        var CPUVar = velocidadeCPU.value;
         var usuarioResponsavelVar = responsavelUsuario.value;
         var IPVar = ipNotebook.value;
 
-        if (nomeMarcaVar == "" || nomeModeloVar == "" || usuarioResponsavelVar == "" || IPVar == "") {
+        if (nomeMarcaVar == "" || nomeModeloVar == "" || CPUVar == "" || RAMVar == "" || usuarioResponsavelVar == "" || IPVar == "") {
             swal("Erro!", "Preencha todos os campos", "error");
             return false;
         }
@@ -106,6 +112,8 @@
                     idEmpresaServer: idEmpresaVar,
                     nomeMarcaServer: nomeMarcaVar,
                     nomeModeloServer: nomeModeloVar,
+                    RAMServer: RAMVar,
+                    CPUServer: CPUVar,
                     usuarioResponsavelServer: usuarioResponsavelVar,
                     IPServer: IPVar
                 })

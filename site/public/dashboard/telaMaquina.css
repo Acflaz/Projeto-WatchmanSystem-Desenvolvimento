@@ -252,8 +252,10 @@ li:hover {
 
 .form-inputResponsavelUsuario{
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     margin: 10px;
+    margin-top: 20px;
+    gap: 10px;
 }
 
 .form-inputResponsavelUsuario label{
@@ -266,11 +268,12 @@ li:hover {
 .form-inputResponsavelUsuario input{
     outline: none;
     border: none;
-    padding: 12px 30px;
+    padding: 12px 1px;
     background-color: #101017;
     border: solid 2px #313131;
     border-radius: 4px;
     color: white;
+    text-align: center;
 }
 
 .form-inputResponsavelUsuario input:hover{

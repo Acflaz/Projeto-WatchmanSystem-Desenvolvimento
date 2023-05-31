@@ -58,19 +58,19 @@ function cadastrar_usuario(nomeUsuario, email, senha, opcao, idEmpresa) {
     return database.executar(instrucao);
 }
 
-function criar_maquina(nomeMarcaVar, nomeModeloVar, IPVar, usuarioResponsavelVar, idUsuario, idEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_empresa():", nomeMarcaVar, nomeModeloVar, IPVar, usuarioResponsavelVar, idUsuario, idEmpresa);
+function criar_maquina(nomeMarcaVar, nomeModeloVar, RAMVar, CPUVar, usuarioResponsavelVar, IPVar, idUsuario, idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar_empresa():", nomeMarcaVar, nomeModeloVar, RAMVar, CPUVar, usuarioResponsavelVar, IPVar, idUsuario, idEmpresa);
     
     var instrucao;
 
     if (process.env.AMBIENTE_PROCESSO === 'producao') {
         instrucao = `
-        INSERT INTO notebook (marca, modelo, ipNotebook, usuarioResponsavel, fkUsuario, fkEmpresa) VALUES ('${nomeMarcaVar}','${nomeModeloVar}', '${IPVar}', '${usuarioResponsavelVar}', '${idUsuario}', '${idEmpresa}');
+        INSERT INTO notebook (marca, modelo, capacidadeRAM, velocidadeCPU, usuarioResponsavel, ipNotebook, fkUsuario, fkEmpresa) VALUES ('${nomeMarcaVar}','${nomeModeloVar}', '${RAMVar}', '${CPUVar}', '${usuarioResponsavelVar}', '${IPVar}', '${idUsuario}', '${idEmpresa}');
         SELECT * FROM empresa WHERE idEmpresa = SCOPE_IDENTITY();
         `;
     } else {
         instrucao = `
-        INSERT INTO notebook (marca, modelo, ipNotebook, usuarioResponsavel, fkUsuario, fkEmpresa) VALUES ('${nomeMarcaVar}','${nomeModeloVar}', '${IPVar}', '${usuarioResponsavelVar}', '${idUsuario}', '${idEmpresa}');
+        INSERT INTO notebook (marca, modelo, capacidadeRAM, velocidadeCPU, usuarioResponsavel, ipNotebook, fkUsuario, fkEmpresa) VALUES ('${nomeMarcaVar}','${nomeModeloVar}', '${RAMVar}', '${CPUVar}', '${usuarioResponsavelVar}', '${IPVar}', '${idUsuario}', '${idEmpresa}');
         `;
     }
 

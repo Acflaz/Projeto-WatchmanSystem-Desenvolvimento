@@ -22,7 +22,7 @@ var mySqlConfig = {
     host: "localhost",
     database: "watchmanSystem",
     user: "root",
-    password: "121509",
+    password: "123456789",
 };
 
 function executar(instrucao) {
